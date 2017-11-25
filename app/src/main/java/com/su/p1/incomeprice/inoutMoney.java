@@ -14,7 +14,7 @@ public class inoutMoney extends AppCompatActivity {
 
     boolean cDot;
     double sumMoney = 0.0;
-    String numText;
+    String numText = " ";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -126,15 +126,23 @@ public class inoutMoney extends AppCompatActivity {
     }
 
     public void setText(String number) {
-        if(numText == null) {
-            if(number.equals("0"))
-                numText = number;
-
+        if(numText == " " || numText == "0")
+            numText = number;
+        else if(number == "-") {
+            if (numText.length() < 2)
+                numText = " ";
+            else {
+                if(numText.charAt(numText.length()-1) == '.')
+                    cDot = false;
+                numText = numText.substring(0, (numText.length() - 1));
+            }
         }
-        if(numText != null && number.equals("0"))
-            return;
-        else if(number == "-")
-            numText = numText.substring(0, (numText.length()-1));
+        else if(number == ".") {
+            if(!cDot) {
+                numText += ".";
+                cDot = true;
+            }
+        }
         else
             numText += number;
 
