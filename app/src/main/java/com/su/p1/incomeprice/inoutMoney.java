@@ -1,7 +1,11 @@
 package com.su.p1.incomeprice;
 
+import android.app.ActionBar;
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -14,7 +18,7 @@ public class inoutMoney extends AppCompatActivity {
 
     boolean cDot;
     double sumMoney = 0.0;
-    String numText = " ";
+    String numText = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,6 +26,23 @@ public class inoutMoney extends AppCompatActivity {
         setContentView(R.layout.activity_inout_money);
 
         setContext();
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.main, menu);
+
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        Intent intent = new Intent();
+        intent.putExtra("mText", moneyArea.getText());
+        setResult(RESULT_OK, intent);
+        finish();
+
+        return super.onOptionsItemSelected(item);
     }
 
     public void setContext() {
@@ -126,25 +147,22 @@ public class inoutMoney extends AppCompatActivity {
     }
 
     public void setText(String number) {
-        if(numText == " " || numText == "0")
-            numText = number;
-        else if(number == "-") {
-            if (numText.length() < 2)
-                numText = " ";
-            else {
-                if(numText.charAt(numText.length()-1) == '.')
-                    cDot = false;
-                numText = numText.substring(0, (numText.length() - 1));
-            }
-        }
-        else if(number == ".") {
-            if(!cDot) {
+        if(number == ".") {
+            if(!cDot && numText.length() != 0) {
                 numText += ".";
                 cDot = true;
             }
         }
-        else
+        else if(number == "-" && numText.length() > 0) {
+            String numTT = numText.substring(0, (numText.length() - 1));
+            if (numTT.length() == 1)
+                numText = "";
+            numText = numTT;
+        }
+        else if(numText.length() != 0)
             numText += number;
+        else
+            numText = number;
 
         moneyArea.setText(numText);
     }
