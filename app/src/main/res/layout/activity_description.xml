@@ -9,49 +9,72 @@
     <TextView
         android:id="@+id/amountMoneyTextView"
         android:layout_width="match_parent"
-        android:layout_height="150dp"
+        android:layout_height="120dp"
         android:gravity="center_vertical|right"
+        android:hint="money"
         android:paddingRight="16dp"
-        android:text="money"
         android:textSize="35dp" />
 
-    <TextView
+    <TableLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:text="In/Ex" />
+        android:layout_height="260dp">
 
-    <Button
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Income" />
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_weight="1"
-        android:orientation="vertical"
-        android:gravity="center">
+            <Button
+                android:id="@+id/in_exButton"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@color/colorIncome"
+                android:text="Income" />
 
-        <ImageView
-            android:id="@+id/calendarImageView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@mipmap/ic_launcher" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:orientation="vertical">
 
-        <TextView
-            android:id="@+id/dateTextView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="date" />
+                <ImageView
+                    android:id="@+id/calendarImageView"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    android:src="@drawable/calendar" />
 
-    </LinearLayout>
+                <TextView
+                    android:id="@+id/dateTextView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingTop="6dp"
+                    android:text="dd MMM yyyy"
+                    android:textSize="14dp" />
 
-    <TextView
+            </LinearLayout>
+
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+
+        </TableRow>
+
+    </TableLayout>
+
+
+    <EditText
         android:id="@+id/memoEditText"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_weight="1"
+        android:layout_height="185dp"
+        android:cursorVisible="false"
+        android:gravity="top"
         android:hint="Memo..." />
 
 </LinearLayout>

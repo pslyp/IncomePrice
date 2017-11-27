@@ -54,6 +54,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Intent mIntent = new Intent(MainActivity.this, Description.class);
                 startActivity(mIntent);
+                finish();
             }
         });
     }
