@@ -1,6 +1,5 @@
 package com.su.p1.incomeprice;
 
-import android.app.ActionBar;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -9,7 +8,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
 
 public class inoutMoney extends AppCompatActivity {
 
@@ -25,7 +23,7 @@ public class inoutMoney extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_inout_money);
 
-        setContext();
+        setButtonNumber();
     }
 
     @Override
@@ -45,7 +43,7 @@ public class inoutMoney extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    public void setContext() {
+    public void setButtonNumber() {
         zero = (Button) findViewById(R.id.button0);
         one = (Button) findViewById(R.id.button1);
         two = (Button) findViewById(R.id.button2);

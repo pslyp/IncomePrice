@@ -43,9 +43,9 @@ public class MainActivity extends AppCompatActivity {
         mListView.setEmptyView(findViewById(R.id.nolistTextView));
         mListView.setEmptyView(findViewById(R.id.addButton));
 
-        Calendar dateTime = Calendar.getInstance();
+        Calendar calendar = Calendar.getInstance();
         SimpleDateFormat simple = new SimpleDateFormat("dd MMM yyyy");
-        String date = simple.format(dateTime.getTime());
+        String date = simple.format(calendar.getTime());
 
         dateText.setText(date + " (Today)");
 
