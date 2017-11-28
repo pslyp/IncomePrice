@@ -18,7 +18,6 @@
         </activity>
         <activity android:name=".Description" />
         <activity android:name=".inoutMoney"></activity>
-        <activity android:name=".Calendar" />
     </application>
 
 </manifest>

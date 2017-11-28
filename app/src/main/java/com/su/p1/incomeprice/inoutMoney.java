@@ -15,15 +15,15 @@ public class inoutMoney extends AppCompatActivity {
     TextView moneyArea;
 
     boolean cDot;
-    double sumMoney = 0.0;
-    String numText = "";
+    double moneyNumber = 0.0;
+    String moneyText = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_inout_money);
 
-        setButtonNumber();
+        initialize();
     }
 
     @Override
@@ -43,7 +43,7 @@ public class inoutMoney extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    public void setButtonNumber() {
+    private void initialize() {
         zero = (Button) findViewById(R.id.button0);
         one = (Button) findViewById(R.id.button1);
         two = (Button) findViewById(R.id.button2);
@@ -56,7 +56,6 @@ public class inoutMoney extends AppCompatActivity {
         nine = (Button) findViewById(R.id.button9);
         dot = (Button) findViewById(R.id.buttonDot);
         delete = (Button) findViewById(R.id.buttonDelete);
-
         moneyArea = (TextView) findViewById(R.id.moneyTextView);
 
         zero.setOnClickListener(new View.OnClickListener() {
@@ -144,24 +143,25 @@ public class inoutMoney extends AppCompatActivity {
         });
     }
 
-    public void setText(String number) {
-        if(number == ".") {
-            if(!cDot && numText.length() != 0) {
-                numText += ".";
+    private void setText(String number) {
+        if (number.equals("-")) {
+            if(moneyText.length() == 1) {
+                moneyText = "0";
+                moneyArea.setText(moneyText);
+                return;
+            }
+            if (moneyText.charAt(moneyText.length() - 1) == '.')
+                cDot = false;
+            moneyText = moneyText.substring(0, moneyText.length() - 1);
+        }
+        else {
+            if (number.equals(".")) {
+                if (cDot)
+                    return;
                 cDot = true;
             }
+            moneyText += number;
         }
-        else if(number == "-" && numText.length() > 0) {
-            String numTT = numText.substring(0, (numText.length() - 1));
-            if (numTT.length() == 1)
-                numText = "";
-            numText = numTT;
-        }
-        else if(numText.length() != 0)
-            numText += number;
-        else
-            numText = number;
-
-        moneyArea.setText(numText);
+        moneyArea.setText(moneyText);
     }
 }

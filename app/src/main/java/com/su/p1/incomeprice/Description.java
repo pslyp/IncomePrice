@@ -87,7 +87,8 @@ public class Description extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        aList.add(new List(R.drawable.pizzacompany, "ค่าข้าว", "dsad", 5000));
+        //aList.add(new List("28112017", R.drawable.pizzacompany, "ค่าข้าว", "กินข้าว", 500));
+
         Intent it = new Intent(Description.this, MainActivity.class);
         startActivity(it);
         finish();
@@ -95,7 +96,7 @@ public class Description extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    public void initialize() {
+    private void initialize() {
         aList = new ArrayList<>();
 
         inExButton = (Button) findViewById(R.id.in_exButton);
@@ -135,13 +136,12 @@ public class Description extends AppCompatActivity {
         inExButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(!checkClick) {
+                if (!checkClick) {
                     moneyTextArea.setTextColor(getResources().getColor(R.color.colorExpenditure));
                     inExButton.setText("Expenditure");
                     inExButton.setBackgroundResource(R.color.colorExpenditure);
                     checkClick = true;
-                }
-                else {
+                } else {
                     moneyTextArea.setTextColor(getResources().getColor(R.color.colorIncome));
                     inExButton.setText("Income");
                     inExButton.setBackgroundResource(R.color.colorIncome);
@@ -151,7 +151,7 @@ public class Description extends AppCompatActivity {
         });
     }
 
-    public String getMonth(int month) {
+    private String getMonth(int month) {
         String[] monthEngList = {" Jan ", " Fab ", " Mar ", " Apr ", " May ", " Jun ", " Jul ", " Aug ", " Sep ", " Oct ", " Nov ", " Dec "};
 
         return monthEngList[month];

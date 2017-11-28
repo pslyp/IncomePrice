@@ -45,10 +45,10 @@ public class ListAdapter extends ArrayAdapter<List> {
 
         List list = mList.get(position);
 
-        im.setImageResource(list.pictureList);
-        title.setText(list.title);
-        memo.setText(list.memo);
-        money.setText(String.valueOf(list.money));
+        im.setImageResource(list.getPictureList());
+        title.setText(list.getTitle());
+        memo.setText(list.getMemo());
+        money.setText(String.valueOf(list.getMoney()));
 
         return view;
     }

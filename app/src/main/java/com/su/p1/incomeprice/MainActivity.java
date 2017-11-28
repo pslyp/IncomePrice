@@ -29,6 +29,10 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        initialize();
+    }
+
+    private void initialize() {
         aList = new ArrayList<>();
 
         add = (Button) findViewById(R.id.addButton);

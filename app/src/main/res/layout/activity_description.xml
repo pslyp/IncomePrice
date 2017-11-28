@@ -72,7 +72,7 @@
     <EditText
         android:id="@+id/memoEditText"
         android:layout_width="match_parent"
-        android:layout_height="185dp"
+        android:layout_height="180dp"
         android:cursorVisible="false"
         android:gravity="top"
         android:hint="Memo..." />
