@@ -13,61 +13,135 @@
         android:gravity="center_vertical|right"
         android:hint="money"
         android:paddingRight="16dp"
+        android:textColor="@color/colorIncome"
         android:textSize="35dp" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <Button
+            android:id="@+id/in_exButton"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@color/colorIncome"
+            android:text="Income" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <ImageView
+                android:id="@+id/calendarImageView"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:src="@drawable/calendar" />
+
+            <TextView
+                android:id="@+id/dateTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingTop="6dp"
+                android:text="dd MMM yyyy"
+                android:textSize="12dp" />
+
+        </LinearLayout>
+
+    </LinearLayout>
 
     <TableLayout
         android:layout_width="match_parent"
-        android:layout_height="260dp">
+        android:layout_height="300dp">
 
         <TableRow
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="match_parent"
+            android:layout_weight="1">
 
-            <Button
-                android:id="@+id/in_exButton"
+            <TextView
+                android:id="@+id/categoryTextView1"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:background="@color/colorIncome"
-                android:text="Income" />
+                android:gravity="center" />
 
-            <LinearLayout
+            <TextView
+                android:id="@+id/categoryTextView2"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:gravity="center"
-                android:orientation="vertical">
+                android:gravity="center" />
 
-                <ImageView
-                    android:id="@+id/calendarImageView"
-                    android:layout_width="48dp"
-                    android:layout_height="48dp"
-                    android:src="@drawable/calendar" />
-
-                <TextView
-                    android:id="@+id/dateTextView"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:paddingTop="6dp"
-                    android:text="dd MMM yyyy"
-                    android:textSize="14dp" />
-
-            </LinearLayout>
+            <TextView
+                android:id="@+id/categoryTextView3"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center" />
 
         </TableRow>
 
         <TableRow
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:layout_weight="1">
 
             <TextView
+                android:id="@+id/categoryTextView4"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent" />
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center" />
+
+            <TextView
+                android:id="@+id/categoryTextView5"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center" />
+
+            <TextView
+                android:id="@+id/categoryTextView6"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center" />
+
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1">
+
+            <TextView
+                android:id="@+id/categoryTextView7"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center" />
+
+            <TextView
+                android:id="@+id/categoryTextView8"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center" />
+
+            <TextView
+                android:id="@+id/categoryTextView9"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center" />
 
         </TableRow>
 
     </TableLayout>
-
 
     <EditText
         android:id="@+id/memoEditText"

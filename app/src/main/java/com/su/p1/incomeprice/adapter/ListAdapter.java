@@ -39,6 +39,7 @@ public class ListAdapter extends ArrayAdapter<List> {
         View view = mInflater.inflate(mLayout, null);
 
         ImageView im = (ImageView) view.findViewById(R.id.imageView);
+        TextView date = (TextView) view.findViewById(R.id.dateTextView);
         TextView title = (TextView) view.findViewById(R.id.titleTextView);
         TextView memo = (TextView) view.findViewById(R.id.memoTextView);
         TextView money = (TextView) view.findViewById(R.id.moneyTextView);
@@ -46,6 +47,7 @@ public class ListAdapter extends ArrayAdapter<List> {
         List list = mList.get(position);
 
         im.setImageResource(list.getPictureList());
+        date.setText(list.getDate());
         title.setText(list.getTitle());
         memo.setText(list.getMemo());
         money.setText(String.valueOf(list.getMoney()));

@@ -4,8 +4,15 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <item
-        android:id="@+id/okAction"
-        android:title="OK"
-        app:showAsAction="always|withText"/>
+        android:id="@+id/calendarMenu"
+        android:icon="@drawable/calendar"
+        android:title="calendar"
+        app:showAsAction="always" />
+
+    <item
+        android:id="@+id/addMenu"
+        android:icon="@drawable/ic_add_black_24dp"
+        android:title="add"
+        app:showAsAction="always|withText" />
 
 </menu>

@@ -12,23 +12,24 @@ import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.su.p1.incomeprice.model.List;
 
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Calendar;
 
 public class Description extends AppCompatActivity {
 
-    private Button inExButton;
-    private Calendar calendar;
-    private ImageView calendarImage;
-    private TextView moneyTextArea, memo, dateText;
+    private DBHelper mDB;
+    private MainActivity MA = new MainActivity();
 
-    private ArrayList<List> aList;
+    private Button inExButton;
+    private TextView moneyTextArea, memo, dateText, category1, category2, category3, category4, category5, category6, category7, category8, category9;
+    private ImageView calendarImage;
+
     private boolean checkClick;
     private int day, month, year;
+    private String date, moneyText = "", type = "in";
 
     static final int DATE_DIALOG_ID = 999;
 
@@ -46,7 +47,7 @@ public class Description extends AppCompatActivity {
 
         if (requestCode == 12) {
             if (resultCode == RESULT_OK) {
-                String moneyText = data.getStringExtra("mText");
+                moneyText = data.getStringExtra("mText");
                 moneyTextArea.setText(moneyText);
             }
         }
@@ -56,60 +57,76 @@ public class Description extends AppCompatActivity {
     protected Dialog onCreateDialog(int id) {
         switch (id) {
             case DATE_DIALOG_ID:
-                year = calendar.get(Calendar.YEAR);
-                month = calendar.get(Calendar.MONTH);
-                day = calendar.get(Calendar.DAY_OF_MONTH);
+                year = MA.calendar.get(Calendar.YEAR);
+                month = MA.calendar.get(Calendar.MONTH);
+                day = MA.calendar.get(Calendar.DAY_OF_MONTH);
 
                 return new DatePickerDialog(this, dateSetListener, year, month, day);
         }
 
-        return null;
+        return super.onCreateDialog(id);
     }
 
 
     private DatePickerDialog.OnDateSetListener dateSetListener = new DatePickerDialog.OnDateSetListener() {
         @Override
         public void onDateSet(DatePicker datePicker, int selectYear, int selectMonth, int selectDay) {
-            year = selectYear;
-            month = selectMonth;
-            day = selectDay;
-
-            dateText.setText(new StringBuilder().append(day).append(getMonth(month)).append(year));
+            date = MA.getDate(selectDay, selectMonth, selectYear);
+            dateText.setText(MA.getDateText(selectDay, selectMonth, selectYear));
         }
     };
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.main, menu);
+        getMenuInflater().inflate(R.menu.ok, menu);
 
         return super.onCreateOptionsMenu(menu);
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        //aList.add(new List("28112017", R.drawable.pizzacompany, "ค่าข้าว", "กินข้าว", 500));
+        if (moneyText.length() > 0) {
+            List list = new List();
+            mDB = new DBHelper(this);
 
-        Intent it = new Intent(Description.this, MainActivity.class);
-        startActivity(it);
-        finish();
+            String m = memo.getText().toString();
+            if (m.length() == 0)
+                m = " -";
+
+            list.setDate(date);
+            list.setPictureList(R.drawable.pizzacompany);
+            list.setTitle("Lunch");
+            list.setMemo(m);
+            list.setMoney(Double.parseDouble(moneyText));
+            list.setType(type);
+
+            mDB.addList(list);
+
+            Intent it = new Intent(Description.this, MainActivity.class);
+            startActivity(it);
+            finish();
+        } else
+            Toast.makeText(Description.this, "Enter amount", Toast.LENGTH_SHORT).show();
 
         return super.onOptionsItemSelected(item);
     }
 
-    private void initialize() {
-        aList = new ArrayList<>();
 
+    private void initialize() {
         inExButton = (Button) findViewById(R.id.in_exButton);
         calendarImage = (ImageView) findViewById(R.id.calendarImageView);
         dateText = (TextView) findViewById(R.id.dateTextView);
         memo = (TextView) findViewById(R.id.memoEditText);
         moneyTextArea = (TextView) findViewById(R.id.amountMoneyTextView);
 
-        calendar = Calendar.getInstance();
-        SimpleDateFormat simple = new SimpleDateFormat("dd MMM yyyy");
-        String date = simple.format(calendar.getTime());
+        setCategory();
 
-        dateText.setText(date);
+        MA.calendar = Calendar.getInstance();
+        year = MA.calendar.get(Calendar.YEAR);
+        month = MA.calendar.get(Calendar.MONTH);
+        day = MA.calendar.get(Calendar.DAY_OF_MONTH);
+        date = MA.getDate(day, month, year);
+        dateText.setText(MA.getDateText(day, month, year));
 
         calendarImage.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -141,20 +158,47 @@ public class Description extends AppCompatActivity {
                     inExButton.setText("Expenditure");
                     inExButton.setBackgroundResource(R.color.colorExpenditure);
                     checkClick = true;
+                    type = "ex";
+                    setCategory();
                 } else {
                     moneyTextArea.setTextColor(getResources().getColor(R.color.colorIncome));
                     inExButton.setText("Income");
                     inExButton.setBackgroundResource(R.color.colorIncome);
                     checkClick = false;
+                    type = "in";
+                    setCategory();
                 }
             }
         });
     }
 
-    private String getMonth(int month) {
-        String[] monthEngList = {" Jan ", " Fab ", " Mar ", " Apr ", " May ", " Jun ", " Jul ", " Aug ", " Sep ", " Oct ", " Nov ", " Dec "};
+    private void setCategory() {
+        category1 = (TextView) findViewById(R.id.categoryTextView1);
+        category2 = (TextView) findViewById(R.id.categoryTextView2);
+        category3 = (TextView) findViewById(R.id.categoryTextView3);
+        category4 = (TextView) findViewById(R.id.categoryTextView4);
+        category5 = (TextView) findViewById(R.id.categoryTextView5);
+        category6 = (TextView) findViewById(R.id.categoryTextView6);
+        category7 = (TextView) findViewById(R.id.categoryTextView7);
+        category8 = (TextView) findViewById(R.id.categoryTextView8);
+        category9 = (TextView) findViewById(R.id.categoryTextView9);
 
-        return monthEngList[month];
+        if(type.equals("ex")) {
+            category1.setText(R.string.cEx1);
+            category2.setText(R.string.cEx2);
+            category3.setText(R.string.cEx3);
+            category4.setText(R.string.cEx4);
+            category5.setText(R.string.cEx5);
+            category6.setText(R.string.cEx6);
+            category7.setText(R.string.cEx7);
+            category8.setText(R.string.cEx8);
+            category9.setText(R.string.cEx9);
+        }
+        else {
+            category1.setText(R.string.cIn1);
+            category2.setText(R.string.cIn2);
+            category3.setText(R.string.cIn3);
+        }
     }
 
 }

@@ -11,12 +11,11 @@ import android.widget.TextView;
 
 public class inoutMoney extends AppCompatActivity {
 
-    Button zero, one, two, three, four, five, six, seven, eight, nine, dot, delete;
-    TextView moneyArea;
+    private Button zero, one, two, three, four, five, six, seven, eight, nine, dot, delete;
+    private TextView moneyArea;
 
-    boolean cDot;
-    double moneyNumber = 0.0;
-    String moneyText = "";
+    private boolean cDot;
+    private String moneyText = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,7 +27,7 @@ public class inoutMoney extends AppCompatActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.main, menu);
+        getMenuInflater().inflate(R.menu.ok, menu);
 
         return super.onCreateOptionsMenu(menu);
     }
@@ -146,7 +145,7 @@ public class inoutMoney extends AppCompatActivity {
     private void setText(String number) {
         if (number.equals("-")) {
             if(moneyText.length() == 1) {
-                moneyText = "0";
+                moneyText = "";
                 moneyArea.setText(moneyText);
                 return;
             }

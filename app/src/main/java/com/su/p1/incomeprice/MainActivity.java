@@ -1,28 +1,38 @@
 package com.su.p1.incomeprice;
 
+import android.app.DatePickerDialog;
+import android.app.Dialog;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.view.View;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.ListView;
 import android.widget.TextView;
 
 import com.su.p1.incomeprice.adapter.ListAdapter;
 import com.su.p1.incomeprice.model.List;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 
 public class MainActivity extends AppCompatActivity {
 
-    ArrayList<List> aList;
-    ListAdapter adapter;
+    public Calendar calendar;
+    private DBHelper mDB;
 
-    Button add;
-    ListView mListView;
-    TextView dateText;
+    private Button add;
+    private ListAdapter adapter;
+    private ListView mListView;
+    private TextView dateText;
+
+    private ArrayList<List> mList;
+    private int day, month, year;
+    private String date;
+
+    static final int DATE_DIALOG_ID = 999;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,34 +42,89 @@ public class MainActivity extends AppCompatActivity {
         initialize();
     }
 
+    @Override
+    protected Dialog onCreateDialog(int id) {
+        switch (id) {
+            case DATE_DIALOG_ID:
+                year = calendar.get(Calendar.YEAR);
+                month = calendar.get(Calendar.MONTH);
+                day = calendar.get(Calendar.DAY_OF_MONTH);
+
+                return new DatePickerDialog(this, dateSetListener, year, month, day);
+        }
+
+        return super.onCreateDialog(id);
+    }
+
+    private DatePickerDialog.OnDateSetListener dateSetListener = new DatePickerDialog.OnDateSetListener() {
+        @Override
+        public void onDateSet(DatePicker datePicker, int selectYear, int selectMonth, int selectDay) {
+            setListView(selectDay, selectMonth, selectYear);
+        }
+    };
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.main, menu);
+
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int itemId = item.getItemId();
+
+        switch (itemId) {
+            case R.id.calendarMenu:
+                showDialog(DATE_DIALOG_ID);
+                return true;
+            case R.id.addMenu:
+                Intent mIntent = new Intent(MainActivity.this, Description.class);
+                startActivity(mIntent);
+                finish();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
+
     private void initialize() {
-        aList = new ArrayList<>();
+        mList = new ArrayList<>();
 
         add = (Button) findViewById(R.id.addButton);
         mListView = (ListView) findViewById(R.id.listView);
         dateText = (TextView) findViewById(R.id.dateTextView);
 
-        //aList.add(new List(R.drawable.pizzacompany, "ค่าข้าว", "กินกับเพื่อนที่บิ๊กซี", 500));
+        calendar = Calendar.getInstance();
+        year = calendar.get(Calendar.YEAR);
+        month = calendar.get(Calendar.MONTH);
+        day = calendar.get(Calendar.DAY_OF_MONTH);
+        date = getDate(day, month, year);
+        setListView(day, month, year);
+    }
 
-        adapter = new ListAdapter(this, R.layout.item, aList);
+    private void setListView(int day, int month, int year) {
+        date = getDate(day, month, year);
+
+        mDB = new DBHelper(this);
+        mList = mDB.getList(date);
+
+        adapter = new ListAdapter(this, R.layout.item, mList);
 
         mListView.setAdapter(adapter);
         mListView.setEmptyView(findViewById(R.id.nolistTextView));
-        mListView.setEmptyView(findViewById(R.id.addButton));
 
-        Calendar calendar = Calendar.getInstance();
-        SimpleDateFormat simple = new SimpleDateFormat("dd MMM yyyy");
-        String date = simple.format(calendar.getTime());
-
-        dateText.setText(date + " (Today)");
-
-        add.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent mIntent = new Intent(MainActivity.this, Description.class);
-                startActivity(mIntent);
-                finish();
-            }
-        });
+        dateText.setText(getDateText(day, month, year));
     }
+
+    public String getDateText(int day, int month, int year) {
+        String[] monthEngList = {" ", " Jan ", " Fab ", " Mar ", " Apr ", " May ", " Jun ", " Jul ", " Aug ", " Sep ", " Oct ", " Nov ", " Dec "};
+
+        return (String.valueOf(day) + String.valueOf(monthEngList[month + 1]) + String.valueOf(year));
+    }
+
+    public String getDate(int day, int month, int year) {
+        return (String.valueOf(day) + String.valueOf(month + 1) + String.valueOf(year));
+    }
+
 }
