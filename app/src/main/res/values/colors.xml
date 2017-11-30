@@ -5,4 +5,6 @@
     <color name="colorAccent">#FF4081</color>
     <color name="colorIncome">#3def2d</color>
     <color name="colorExpenditure">#f53d3a</color>
+    <color name="colorCategorySelect">#d1d1d1</color>
+    <color name="colorCategoryNoSelect">#FFFAFAFA</color>
 </resources>

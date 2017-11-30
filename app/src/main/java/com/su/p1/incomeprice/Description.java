@@ -29,7 +29,8 @@ public class Description extends AppCompatActivity {
 
     private boolean checkClick;
     private int day, month, year;
-    private String date, moneyText = "", type = "in";
+    private String title, date, moneyText = "", type = "in";
+    private TextView[] category;
 
     static final int DATE_DIALOG_ID = 999;
 
@@ -91,12 +92,12 @@ public class Description extends AppCompatActivity {
 
             String m = memo.getText().toString();
             if (m.length() == 0)
-                m = " -";
+                m = "-";
 
             list.setDate(date);
             list.setPictureList(R.drawable.pizzacompany);
-            list.setTitle("Lunch");
-            list.setMemo(m);
+            list.setTitle(title);
+            list.setMemo("Memo : " + m);
             list.setMoney(Double.parseDouble(moneyText));
             list.setType(type);
 
@@ -135,6 +136,78 @@ public class Description extends AppCompatActivity {
             }
         });
 
+        category1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                title = category1.getText().toString();
+                selectCategory(category1);
+            }
+        });
+
+        category2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                title = category2.getText().toString();
+                selectCategory(category2);
+            }
+        });
+
+        category3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                title = category3.getText().toString();
+                selectCategory(category3);
+            }
+        });
+
+        category4.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                title = category4.getText().toString();
+                selectCategory(category4);
+            }
+        });
+
+        category5.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                title = category5.getText().toString();
+                selectCategory(category5);
+            }
+        });
+
+        category6.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                title = category6.getText().toString();
+                selectCategory(category6);
+            }
+        });
+
+        category7.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                title = category7.getText().toString();
+                selectCategory(category7);
+            }
+        });
+
+        category8.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                title = category8.getText().toString();
+                selectCategory(category8);
+            }
+        });
+
+        category9.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                title = category9.getText().toString();
+                selectCategory(category9);
+            }
+        });
+
         moneyTextArea.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -160,13 +233,16 @@ public class Description extends AppCompatActivity {
                     checkClick = true;
                     type = "ex";
                     setCategory();
-                } else {
+                    selectCategory(null);
+                }
+                else {
                     moneyTextArea.setTextColor(getResources().getColor(R.color.colorIncome));
                     inExButton.setText("Income");
                     inExButton.setBackgroundResource(R.color.colorIncome);
                     checkClick = false;
                     type = "in";
                     setCategory();
+                    selectCategory(null);
                 }
             }
         });
@@ -183,7 +259,33 @@ public class Description extends AppCompatActivity {
         category8 = (TextView) findViewById(R.id.categoryTextView8);
         category9 = (TextView) findViewById(R.id.categoryTextView9);
 
-        if(type.equals("ex")) {
+        category = new TextView[]{category1, category2, category3, category4, category5, category6, category7, category8, category9};
+        int[] cIn = {R.string.cIn1, R.string.cIn2, R.string.cIn3};
+        int[] cEx = {R.string.cEx1, R.string.cEx2, R.string.cEx3, R.string.cEx4, R.string.cEx5, R.string.cEx6, R.string.cEx7, R.string.cEx8, R.string.cEx9};
+
+        for(int i=0; i<category.length; ++i) {
+            if(type.equals("ex")) {
+                if(i<cEx.length) {
+                    category[i].setText(cEx[i]);
+                    category[i].setEnabled(true);
+                    continue;
+                }
+                category[i].setText("");
+                category[i].setEnabled(false);
+            }
+            else {
+                if(i<cIn.length) {
+                    category[i].setText(cIn[i]);
+                    category[i].setEnabled(true);
+                    continue;
+                }
+                category[i].setText("");
+                category[i].setEnabled(false);
+            }
+        }
+
+        /*
+        if (type.equals("ex")) {
             category1.setText(R.string.cEx1);
             category2.setText(R.string.cEx2);
             category3.setText(R.string.cEx3);
@@ -193,12 +295,60 @@ public class Description extends AppCompatActivity {
             category7.setText(R.string.cEx7);
             category8.setText(R.string.cEx8);
             category9.setText(R.string.cEx9);
+
+            category1.setEnabled(true);
+            category2.setEnabled(true);
+            category3.setEnabled(true);
+            category4.setEnabled(true);
+            category5.setEnabled(true);
+            category6.setEnabled(true);
+            category7.setEnabled(true);
+            category8.setEnabled(true);
+            category9.setEnabled(true);
         }
         else {
             category1.setText(R.string.cIn1);
             category2.setText(R.string.cIn2);
             category3.setText(R.string.cIn3);
+            category4.setText("");
+            category5.setText("");
+            category6.setText("");
+            category7.setText("");
+            category8.setText("");
+            category9.setText("");
+
+            category1.setEnabled(true);
+            category2.setEnabled(true);
+            category3.setEnabled(true);
+            category4.setEnabled(false);
+            category5.setEnabled(false);
+            category6.setEnabled(false);
+            category7.setEnabled(false);
+            category8.setEnabled(false);
+            category9.setEnabled(false);
         }
+        */
+    }
+
+    private void selectCategory(TextView cate) {
+        for(int i=0; i<category.length; ++i) {
+            if(cate == category[i])
+                category[i].setBackgroundResource(R.color.colorCategorySelect);
+            else
+                category[i].setBackgroundResource(R.color.colorCategoryNoSelect);
+        }
+
+        /*
+        category1.setBackgroundResource(R.color.colorCategoryNoSelect);
+        category2.setBackgroundResource(R.color.colorCategoryNoSelect);
+        category3.setBackgroundResource(R.color.colorCategoryNoSelect);
+        category4.setBackgroundResource(R.color.colorCategoryNoSelect);
+        category5.setBackgroundResource(R.color.colorCategoryNoSelect);
+        category6.setBackgroundResource(R.color.colorCategoryNoSelect);
+        category7.setBackgroundResource(R.color.colorCategoryNoSelect);
+        category8.setBackgroundResource(R.color.colorCategoryNoSelect);
+        category9.setBackgroundResource(R.color.colorCategoryNoSelect);
+        */
     }
 
 }
