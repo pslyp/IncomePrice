@@ -149,6 +149,7 @@
         android:layout_height="180dp"
         android:cursorVisible="false"
         android:gravity="top"
-        android:hint="Memo..." />
+        android:hint="Memo..."
+        android:textSize="18dp" />
 
 </LinearLayout>

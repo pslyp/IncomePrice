@@ -94,6 +94,11 @@ public class Description extends AppCompatActivity {
             if (m.length() == 0)
                 m = "-";
 
+            if(title == null) {
+                Toast.makeText(Description.this, "Select category", Toast.LENGTH_SHORT).show();
+                return false;
+            }
+
             list.setDate(date);
             list.setPictureList(R.drawable.pizzacompany);
             list.setTitle(title);
@@ -264,6 +269,7 @@ public class Description extends AppCompatActivity {
         int[] cEx = {R.string.cEx1, R.string.cEx2, R.string.cEx3, R.string.cEx4, R.string.cEx5, R.string.cEx6, R.string.cEx7, R.string.cEx8, R.string.cEx9};
 
         for(int i=0; i<category.length; ++i) {
+            title = null;
             if(type.equals("ex")) {
                 if(i<cEx.length) {
                     category[i].setText(cEx[i]);

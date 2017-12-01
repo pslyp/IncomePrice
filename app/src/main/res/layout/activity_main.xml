@@ -20,7 +20,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="Date" />
+            android:text="Date"
+            android:textSize="16dp" />
 
         <TextView
             android:id="@+id/accountTextView"
@@ -28,7 +29,8 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:gravity="right"
-            android:text="Account" />
+            android:text="Account"
+            android:textSize="16dp" />
 
     </LinearLayout>
 

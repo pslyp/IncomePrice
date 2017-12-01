@@ -6,13 +6,11 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
 import android.widget.TextView;
 
 public class inoutMoney extends AppCompatActivity {
 
-    private Button zero, one, two, three, four, five, six, seven, eight, nine, dot, delete;
-    private TextView moneyArea;
+    private TextView moneyArea, zero, one, two, three, four, five, six, seven, eight, nine, dot, delete;
 
     private boolean cDot;
     private String moneyText = "";
@@ -43,18 +41,18 @@ public class inoutMoney extends AppCompatActivity {
     }
 
     private void initialize() {
-        zero = (Button) findViewById(R.id.button0);
-        one = (Button) findViewById(R.id.button1);
-        two = (Button) findViewById(R.id.button2);
-        three = (Button) findViewById(R.id.button3);
-        four = (Button) findViewById(R.id.button4);
-        five = (Button) findViewById(R.id.button5);
-        six = (Button) findViewById(R.id.button6);
-        seven = (Button) findViewById(R.id.button7);
-        eight = (Button) findViewById(R.id.button8);
-        nine = (Button) findViewById(R.id.button9);
-        dot = (Button) findViewById(R.id.buttonDot);
-        delete = (Button) findViewById(R.id.buttonDelete);
+        zero = (TextView) findViewById(R.id.button0);
+        one = (TextView) findViewById(R.id.button1);
+        two = (TextView) findViewById(R.id.button2);
+        three = (TextView) findViewById(R.id.button3);
+        four = (TextView) findViewById(R.id.button4);
+        five = (TextView) findViewById(R.id.button5);
+        six = (TextView) findViewById(R.id.button6);
+        seven = (TextView) findViewById(R.id.button7);
+        eight = (TextView) findViewById(R.id.button8);
+        nine = (TextView) findViewById(R.id.button9);
+        dot = (TextView) findViewById(R.id.buttonDot);
+        delete = (TextView) findViewById(R.id.buttonDelete);
         moneyArea = (TextView) findViewById(R.id.moneyTextView);
 
         zero.setOnClickListener(new View.OnClickListener() {
@@ -144,7 +142,7 @@ public class inoutMoney extends AppCompatActivity {
 
     private void setText(String number) {
         if (number.equals("-")) {
-            if(moneyText.length() == 1) {
+            if(moneyText.length() <= 1) {
                 moneyText = "";
                 moneyArea.setText(moneyText);
                 return;
@@ -155,9 +153,13 @@ public class inoutMoney extends AppCompatActivity {
         }
         else {
             if (number.equals(".")) {
-                if (cDot)
+                if (cDot || moneyText.length() == 0)
                     return;
                 cDot = true;
+            }
+            if(number.equals("0") && moneyText.equals("0")) {
+                moneyText = number;
+                return;
             }
             moneyText += number;
         }
