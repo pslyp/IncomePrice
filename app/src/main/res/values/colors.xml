@@ -7,4 +7,5 @@
     <color name="colorExpenditure">#ec5f5c</color>
     <color name="colorCategorySelect">#dfdfdf</color>
     <color name="colorCategoryNoSelect">#FFFAFAFA</color>
+    <color name="backgroundAcc">#a669d96b</color>
 </resources>

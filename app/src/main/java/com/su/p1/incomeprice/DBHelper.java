@@ -7,6 +7,8 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.provider.BaseColumns;
 
+import com.su.p1.incomeprice.model.Account;
+import com.su.p1.incomeprice.model.Amount;
 import com.su.p1.incomeprice.model.List;
 
 import java.util.ArrayList;
@@ -30,6 +32,9 @@ public class DBHelper extends SQLiteOpenHelper {
     public static final String COL_MONEY = "money";
     public static final String COL_TYPE = "type";
 
+    private final String ACC_TABLE_NAME = "account";
+    private final String COL_NAME = "name";
+
     public DBHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }
@@ -38,6 +43,8 @@ public class DBHelper extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase db) {
         db.execSQL("CREATE TABLE " + TABLE_NAME + "(" + ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " + COL_DATE + " TEXT, " + COL_PICTURE + " INTEGER, "
                 + COL_TITLE + " TEXT, " + COL_MEMO + " TEXT, " + COL_MONEY + " DOUBLE, " + COL_TYPE + " TEXT);");
+
+        db.execSQL("CREATE TABLE " + ACC_TABLE_NAME + "(" + COL_NAME + "TEXT);");
     }
 
     @Override
@@ -75,10 +82,67 @@ public class DBHelper extends SQLiteOpenHelper {
             list.add(new List(mCursor.getString(1), mCursor.getInt(2), mCursor.getString(3), mCursor.getString(4), mCursor.getDouble(5), mCursor.getString(6)));
             mCursor.moveToNext();
         }
-
         sqLiteDB.close();
 
         return list;
+    }
+
+    public Amount getInEx(String date) {
+        Amount am = new Amount();
+
+        double in = 0, ex = 0;
+        String inT, exT;
+
+        sqLiteDB = this.getWritableDatabase();
+        Cursor c = sqLiteDB.query(TABLE_NAME, new String[] {COL_MONEY, COL_TYPE}, COL_DATE + " = ?", new String[] {date}, null, null, null, null);
+
+        if(c != null)
+            c.moveToFirst();
+
+        while (!c.isAfterLast()) {
+            if(c.getString(1).equals("in"))
+                in += Double.parseDouble(c.getString(0));
+            else
+                ex += Double.parseDouble(c.getString(0));
+
+            c.moveToNext();
+        }
+        sqLiteDB.close();
+
+        am.setIncome(in);
+        am.setExpenditure(ex);
+
+        return am;
+    }
+
+    public void deleteList() {
+
+    }
+
+    public void addAccount(String name) {
+        sqLiteDB = this.getWritableDatabase();
+
+       ContentValues v = new ContentValues();
+       v.put(COL_NAME, name);
+
+       sqLiteDB.insert(ACC_TABLE_NAME, null, v);
+       sqLiteDB.close();
+    }
+
+    public String getAccount() {
+        String n = "";
+        sqLiteDB = this.getWritableDatabase();
+
+        Cursor c = sqLiteDB.query(ACC_TABLE_NAME, null, null, null, null, null, null, null);
+        c.moveToFirst();
+
+        while(!c.isAfterLast()) {
+            n = c.getString(0);
+            c.moveToNext();
+        }
+        sqLiteDB.close();
+
+        return n;
     }
 
 }

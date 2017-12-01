@@ -16,19 +16,16 @@ import android.widget.Toast;
 
 import com.su.p1.incomeprice.model.List;
 
-import java.util.Calendar;
-
 public class Description extends AppCompatActivity {
 
+    private dateTime dtDes;
     private DBHelper mDB;
-    private MainActivity MA = new MainActivity();
 
     private Button inExButton;
     private TextView moneyTextArea, memo, dateText, category1, category2, category3, category4, category5, category6, category7, category8, category9;
     private ImageView calendarImage;
 
     private boolean checkClick;
-    private int day, month, year;
     private String title, date, moneyText = "", type = "in";
     private TextView[] category;
 
@@ -40,6 +37,15 @@ public class Description extends AppCompatActivity {
         setContentView(R.layout.activity_description);
 
         initialize();
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+
+        Intent it = new Intent(Description.this, MainActivity.class);
+        startActivity(it);
+        finish();
     }
 
     @Override
@@ -58,11 +64,7 @@ public class Description extends AppCompatActivity {
     protected Dialog onCreateDialog(int id) {
         switch (id) {
             case DATE_DIALOG_ID:
-                year = MA.calendar.get(Calendar.YEAR);
-                month = MA.calendar.get(Calendar.MONTH);
-                day = MA.calendar.get(Calendar.DAY_OF_MONTH);
-
-                return new DatePickerDialog(this, dateSetListener, year, month, day);
+                return new DatePickerDialog(this, dateSetListener, dtDes.getYear(), dtDes.getMonth(), dtDes.getDay());
         }
 
         return super.onCreateDialog(id);
@@ -72,8 +74,7 @@ public class Description extends AppCompatActivity {
     private DatePickerDialog.OnDateSetListener dateSetListener = new DatePickerDialog.OnDateSetListener() {
         @Override
         public void onDateSet(DatePicker datePicker, int selectYear, int selectMonth, int selectDay) {
-            date = MA.getDate(selectDay, selectMonth, selectYear);
-            dateText.setText(MA.getDateText(selectDay, selectMonth, selectYear));
+            setDate(selectDay, selectMonth, selectYear);
         }
     };
 
@@ -94,7 +95,7 @@ public class Description extends AppCompatActivity {
             if (m.length() == 0)
                 m = "-";
 
-            if(title == null) {
+            if (title == null) {
                 Toast.makeText(Description.this, "Select category", Toast.LENGTH_SHORT).show();
                 return false;
             }
@@ -119,6 +120,8 @@ public class Description extends AppCompatActivity {
 
 
     private void initialize() {
+        dtDes = new dateTime();
+
         inExButton = (Button) findViewById(R.id.in_exButton);
         calendarImage = (ImageView) findViewById(R.id.calendarImageView);
         dateText = (TextView) findViewById(R.id.dateTextView);
@@ -126,13 +129,7 @@ public class Description extends AppCompatActivity {
         moneyTextArea = (TextView) findViewById(R.id.amountMoneyTextView);
 
         setCategory();
-
-        MA.calendar = Calendar.getInstance();
-        year = MA.calendar.get(Calendar.YEAR);
-        month = MA.calendar.get(Calendar.MONTH);
-        day = MA.calendar.get(Calendar.DAY_OF_MONTH);
-        date = MA.getDate(day, month, year);
-        dateText.setText(MA.getDateText(day, month, year));
+        setDate(dtDes.getDay(), dtDes.getMonth(), dtDes.getYear());
 
         calendarImage.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -239,8 +236,7 @@ public class Description extends AppCompatActivity {
                     type = "ex";
                     setCategory();
                     selectCategory(null);
-                }
-                else {
+                } else {
                     moneyTextArea.setTextColor(getResources().getColor(R.color.colorIncome));
                     inExButton.setText("Income");
                     inExButton.setBackgroundResource(R.color.colorIncome);
@@ -268,19 +264,18 @@ public class Description extends AppCompatActivity {
         int[] cIn = {R.string.cIn1, R.string.cIn2, R.string.cIn3};
         int[] cEx = {R.string.cEx1, R.string.cEx2, R.string.cEx3, R.string.cEx4, R.string.cEx5, R.string.cEx6, R.string.cEx7, R.string.cEx8, R.string.cEx9};
 
-        for(int i=0; i<category.length; ++i) {
+        for (int i = 0; i < category.length; ++i) {
             title = null;
-            if(type.equals("ex")) {
-                if(i<cEx.length) {
+            if (type.equals("ex")) {
+                if (i < cEx.length) {
                     category[i].setText(cEx[i]);
                     category[i].setEnabled(true);
                     continue;
                 }
                 category[i].setText("");
                 category[i].setEnabled(false);
-            }
-            else {
-                if(i<cIn.length) {
+            } else {
+                if (i < cIn.length) {
                     category[i].setText(cIn[i]);
                     category[i].setEnabled(true);
                     continue;
@@ -337,8 +332,8 @@ public class Description extends AppCompatActivity {
     }
 
     private void selectCategory(TextView cate) {
-        for(int i=0; i<category.length; ++i) {
-            if(cate == category[i])
+        for (int i = 0; i < category.length; ++i) {
+            if (cate == category[i])
                 category[i].setBackgroundResource(R.color.colorCategorySelect);
             else
                 category[i].setBackgroundResource(R.color.colorCategoryNoSelect);
@@ -355,6 +350,11 @@ public class Description extends AppCompatActivity {
         category8.setBackgroundResource(R.color.colorCategoryNoSelect);
         category9.setBackgroundResource(R.color.colorCategoryNoSelect);
         */
+    }
+
+    private void setDate(int day, int month, int year) {
+        date = dtDes.getDateText(day, month, year);
+        dateText.setText(dtDes.getDateTextMonth(day, month, month));
     }
 
 }

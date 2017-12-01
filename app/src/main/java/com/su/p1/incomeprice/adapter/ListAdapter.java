@@ -11,6 +11,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.su.p1.incomeprice.R;
+import com.su.p1.incomeprice.model.Amount;
 import com.su.p1.incomeprice.model.List;
 
 import java.util.ArrayList;
@@ -44,13 +45,14 @@ public class ListAdapter extends ArrayAdapter<List> {
         TextView memo = (TextView) view.findViewById(R.id.memoTextView);
         TextView money = (TextView) view.findViewById(R.id.moneyTextView);
 
+        Amount am = new Amount();
         List list = mList.get(position);
 
         im.setImageResource(list.getPictureList());
         //date.setText(list.getDate());
         title.setText(list.getTitle());
         memo.setText(list.getMemo());
-        money.setText(String.valueOf(list.getMoney()));
+        money.setText(am.getInEx(list.getMoney()));
 
         return view;
     }

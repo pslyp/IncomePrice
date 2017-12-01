@@ -16,21 +16,18 @@ import com.su.p1.incomeprice.adapter.ListAdapter;
 import com.su.p1.incomeprice.model.List;
 
 import java.util.ArrayList;
-import java.util.Calendar;
 
 public class MainActivity extends AppCompatActivity {
 
-    public Calendar calendar;
+    private dateTime dt;
     private DBHelper mDB;
 
     private Button add;
     private ListAdapter adapter;
     private ListView mListView;
-    private TextView dateText;
+    private TextView account, dateText;
 
     private ArrayList<List> mList;
-    private int day, month, year;
-    private String date;
 
     static final int DATE_DIALOG_ID = 999;
 
@@ -46,11 +43,7 @@ public class MainActivity extends AppCompatActivity {
     protected Dialog onCreateDialog(int id) {
         switch (id) {
             case DATE_DIALOG_ID:
-                year = calendar.get(Calendar.YEAR);
-                month = calendar.get(Calendar.MONTH);
-                day = calendar.get(Calendar.DAY_OF_MONTH);
-
-                return new DatePickerDialog(this, dateSetListener, year, month, day);
+                return new DatePickerDialog(this, dateSetListener, dt.getYear(), dt.getMonth(), dt.getDay());
         }
 
         return super.onCreateDialog(id);
@@ -78,9 +71,14 @@ public class MainActivity extends AppCompatActivity {
             case R.id.calendarMenu:
                 showDialog(DATE_DIALOG_ID);
                 return true;
-            case R.id.addMenu:
-                Intent mIntent = new Intent(MainActivity.this, Description.class);
-                startActivity(mIntent);
+            case R.id.addDesMenu:
+                Intent description = new Intent(MainActivity.this, Description.class);
+                startActivity(description);
+                finish();
+                return true;
+            case R.id.selectMenu:
+                Intent balance = new Intent(MainActivity.this, Balance.class);
+                startActivity(balance);
                 finish();
                 return true;
             default:
@@ -89,42 +87,37 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void initialize() {
+        dt = new dateTime();
+        mDB = new DBHelper(this);
         mList = new ArrayList<>();
 
+        account = (TextView) findViewById(R.id.accountTextView);
         add = (Button) findViewById(R.id.addButton);
         mListView = (ListView) findViewById(R.id.listView);
         dateText = (TextView) findViewById(R.id.dateTextView);
 
-        calendar = Calendar.getInstance();
-        year = calendar.get(Calendar.YEAR);
-        month = calendar.get(Calendar.MONTH);
-        day = calendar.get(Calendar.DAY_OF_MONTH);
-        date = getDate(day, month, year);
-        setListView(day, month, year);
+        setListView(dt.getDay(), dt.getMonth(), dt.getYear());
+
+        /*
+        if (mDB.getAccount().length() == 0) {
+            Intent intent = new Intent(MainActivity.this, nameAccount.class);
+            startActivity(intent);
+            finish();
+        }
+        */
+
+        //account.setText(mDB.getAccount());
     }
 
     private void setListView(int day, int month, int year) {
-        date = getDate(day, month, year);
-
-        mDB = new DBHelper(this);
-        mList = mDB.getList(date);
+        mList = mDB.getList(dt.getDateText(day, month, year));
 
         adapter = new ListAdapter(this, R.layout.item, mList);
 
         mListView.setAdapter(adapter);
         mListView.setEmptyView(findViewById(R.id.nolistTextView));
 
-        dateText.setText(getDateText(day, month, year));
-    }
-
-    public String getDateText(int day, int month, int year) {
-        String[] monthEngList = {" ", " Jan ", " Fab ", " Mar ", " Apr ", " May ", " Jun ", " Jul ", " Aug ", " Sep ", " Oct ", " Nov ", " Dec "};
-
-        return (String.valueOf(day) + String.valueOf(monthEngList[month + 1]) + String.valueOf(year));
-    }
-
-    public String getDate(int day, int month, int year) {
-        return (String.valueOf(day) + String.valueOf(month + 1) + String.valueOf(year));
+        dateText.setText(dt.getDateTextMonth(day, month, year));
     }
 
 }

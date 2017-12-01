@@ -24,6 +24,15 @@ public class inoutMoney extends AppCompatActivity {
     }
 
     @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+
+        Intent it = new Intent(inoutMoney.this, Description.class);
+        startActivity(it);
+        finish();
+    }
+
+    @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.ok, menu);
 
