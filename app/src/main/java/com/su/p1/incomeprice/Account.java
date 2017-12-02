@@ -7,7 +7,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
-public class nameAccount extends AppCompatActivity {
+public class Account extends AppCompatActivity {
 
     DBHelper mDB;
 
@@ -18,6 +18,7 @@ public class nameAccount extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_name_account);
+        setTitle("");
 
         initialize();
     }
@@ -38,9 +39,9 @@ public class nameAccount extends AppCompatActivity {
         ok.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //mDB.addAccount(name.getText().toString());
+                mDB.addAccount(name.getText().toString());
 
-                Intent intent = new Intent(nameAccount.this, MainActivity.class);
+                Intent intent = new Intent(Account.this, MainActivity.class);
                 startActivity(intent);
                 finish();
             }

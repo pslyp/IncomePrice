@@ -8,7 +8,7 @@
     android:gravity="center"
     android:orientation="vertical"
     android:padding="16dp"
-    tools:context="com.su.p1.incomeprice.nameAccount">
+    tools:context="com.su.p1.incomeprice.Account">
 
     <TextView
         android:layout_width="wrap_content"
@@ -24,7 +24,10 @@
         android:layout_marginTop="16dp"
         android:backgroundTint="#000000"
         android:cursorVisible="false"
-        android:gravity="center" />
+        android:ems="10"
+        android:gravity="center"
+        android:lines="1"
+        android:maxLength="20" />
 
     <Button
         android:id="@+id/okButton"

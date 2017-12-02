@@ -7,17 +7,20 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.DatePicker;
 import android.widget.TextView;
 
 import com.su.p1.incomeprice.model.Amount;
+
+import org.w3c.dom.Text;
 
 public class Balance extends AppCompatActivity {
 
     Amount Am;
     dateTime dtBa;
     DBHelper mDB;
-    TextView income, expenditure, balance;
+    TextView income, expenditure, balance, daySelect, monthSelect, yearSelect;
 
     static final int DATE_DIALOG_ID = 999;
 
@@ -25,6 +28,7 @@ public class Balance extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_balance);
+        setTitle("");
 
         initialize();
     }
@@ -76,11 +80,45 @@ public class Balance extends AppCompatActivity {
         income = (TextView) findViewById(R.id.inTextView);
         expenditure = (TextView) findViewById(R.id.exTextView);
         balance = (TextView) findViewById(R.id.balanceTextView);
+        daySelect = (TextView) findViewById(R.id.daySelectTextView);
+        monthSelect = (TextView) findViewById(R.id.monthSelectTextView);
+        yearSelect = (TextView) findViewById(R.id.yearSelectTextView);
 
         setBaText(dtBa.getDay(), dtBa.getMonth(), dtBa.getYear());
+
+        daySelect.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                daySelect.setBackgroundResource(R.drawable.circle);
+                monthSelect.setBackgroundResource(R.color.colorCategoryNoSelect);
+                yearSelect.setBackgroundResource(R.color.colorCategoryNoSelect);
+                setBaText(dtBa.getDay(), dtBa.getMonth(), dtBa.getYear());
+            }
+        });
+
+        monthSelect.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                daySelect.setBackgroundResource(R.color.colorCategoryNoSelect);
+                monthSelect.setBackgroundResource(R.drawable.circle);
+                yearSelect.setBackgroundResource(R.color.colorCategoryNoSelect);
+                setBaText(0, dtBa.getMonth(), dtBa.getYear());
+            }
+        });
+
+        yearSelect.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                daySelect.setBackgroundResource(R.color.colorCategoryNoSelect);
+                monthSelect.setBackgroundResource(R.color.colorCategoryNoSelect);
+                yearSelect.setBackgroundResource(R.drawable.circle);
+                setBaText(0, 0, dtBa.getYear());
+            }
+        });
     }
 
     private void setBaText(int day, int month, int year) {
+        //Am = mDB.getInEx("22017");
         Am = mDB.getInEx(dtBa.getDateText(day, month, year));
         income.setText(Am.getInEx(Am.getIncome()));
         expenditure.setText(Am.getInEx(Am.getExpenditure()));

@@ -6,6 +6,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.provider.BaseColumns;
+import android.util.Log;
 
 import com.su.p1.incomeprice.model.Account;
 import com.su.p1.incomeprice.model.Amount;
@@ -44,7 +45,9 @@ public class DBHelper extends SQLiteOpenHelper {
         db.execSQL("CREATE TABLE " + TABLE_NAME + "(" + ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " + COL_DATE + " TEXT, " + COL_PICTURE + " INTEGER, "
                 + COL_TITLE + " TEXT, " + COL_MEMO + " TEXT, " + COL_MONEY + " DOUBLE, " + COL_TYPE + " TEXT);");
 
-        db.execSQL("CREATE TABLE " + ACC_TABLE_NAME + "(" + COL_NAME + "TEXT);");
+        db.execSQL("CREATE TABLE " + ACC_TABLE_NAME + "(" + COL_NAME + " TEXT);");
+
+        Log.d("Create multi table ", "Success");
     }
 
     @Override
@@ -67,6 +70,7 @@ public class DBHelper extends SQLiteOpenHelper {
 
         sqLiteDB.insert(TABLE_NAME, null, values);
         sqLiteDB.close();
+        values.clear();
     }
 
     public ArrayList<List> getList(String date) {
@@ -91,19 +95,23 @@ public class DBHelper extends SQLiteOpenHelper {
         Amount am = new Amount();
 
         double in = 0, ex = 0;
-        String inT, exT;
 
         sqLiteDB = this.getWritableDatabase();
-        Cursor c = sqLiteDB.query(TABLE_NAME, new String[] {COL_MONEY, COL_TYPE}, COL_DATE + " = ?", new String[] {date}, null, null, null, null);
+
+        Cursor c;
+        if(date.length() <= 6)
+            c = sqLiteDB.query(TABLE_NAME, new String[] {COL_MONEY, COL_TYPE}, COL_DATE + " like '%" + date + "'", null, null, null, null, null);
+        else
+            c = sqLiteDB.query(TABLE_NAME, new String[] {COL_MONEY, COL_TYPE}, COL_DATE + " = ?", new String[] {date}, null, null, null, null);
 
         if(c != null)
             c.moveToFirst();
 
         while (!c.isAfterLast()) {
             if(c.getString(1).equals("in"))
-                in += Double.parseDouble(c.getString(0));
+                in += c.getDouble(0);
             else
-                ex += Double.parseDouble(c.getString(0));
+                ex += c.getDouble(0);
 
             c.moveToNext();
         }

@@ -44,6 +44,7 @@ public class ListAdapter extends ArrayAdapter<List> {
         TextView title = (TextView) view.findViewById(R.id.titleTextView);
         TextView memo = (TextView) view.findViewById(R.id.memoTextView);
         TextView money = (TextView) view.findViewById(R.id.moneyTextView);
+        TextView unit = (TextView) view.findViewById(R.id.unitTextView);
 
         Amount am = new Amount();
         List list = mList.get(position);
@@ -53,6 +54,15 @@ public class ListAdapter extends ArrayAdapter<List> {
         title.setText(list.getTitle());
         memo.setText(list.getMemo());
         money.setText(am.getInEx(list.getMoney()));
+
+        if(list.getType().equals("in")) {
+            money.setTextColor(mContext.getResources().getColor(R.color.colorIncome));
+            unit.setTextColor(mContext.getResources().getColor(R.color.colorIncome));
+        }
+        else {
+            money.setTextColor(mContext.getResources().getColor(R.color.colorExpenditure));
+            unit.setTextColor(mContext.getResources().getColor(R.color.colorExpenditure));
+        }
 
         return view;
     }

@@ -35,6 +35,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        setTitle("");
 
         initialize();
     }
@@ -98,15 +99,15 @@ public class MainActivity extends AppCompatActivity {
 
         setListView(dt.getDay(), dt.getMonth(), dt.getYear());
 
-        /*
+
         if (mDB.getAccount().length() == 0) {
-            Intent intent = new Intent(MainActivity.this, nameAccount.class);
-            startActivity(intent);
+            Intent account = new Intent(MainActivity.this, Account.class);
+            startActivity(account);
             finish();
         }
-        */
 
-        //account.setText(mDB.getAccount());
+        account.setText(mDB.getAccount());
+
     }
 
     private void setListView(int day, int month, int year) {

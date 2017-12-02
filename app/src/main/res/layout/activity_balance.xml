@@ -7,9 +7,47 @@
     android:orientation="vertical"
     tools:context="com.su.p1.incomeprice.Balance">
 
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="50dp">
+
+        <TextView
+            android:id="@+id/daySelectTextView"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:layout_marginRight="20dp"
+            android:background="@drawable/circle"
+            android:gravity="center"
+            android:text="Day"
+            android:textSize="18dp" />
+
+        <TextView
+            android:id="@+id/monthSelectTextView"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:layout_marginRight="20dp"
+            android:gravity="center"
+            android:text="Month"
+            android:textSize="18dp" />
+
+        <TextView
+            android:id="@+id/yearSelectTextView"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:gravity="center"
+            android:text="Year"
+            android:textSize="18dp" />
+
+    </LinearLayout>
+
+
     <TableLayout
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="50dp">
 
         <TableRow
             android:layout_width="wrap_content"
@@ -20,13 +58,16 @@
                 android:layout_height="wrap_content"
                 android:gravity="center"
                 android:padding="16dp"
-                android:text="Income" />
+                android:text="Income"
+                android:textSize="20dp" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:gravity="center"
                 android:padding="16dp"
-                android:text="Expenditure" />
+                android:text="Expenditure"
+                android:textSize="20dp" />
 
         </TableRow>
 
@@ -40,14 +81,19 @@
                 android:layout_height="wrap_content"
                 android:gravity="center"
                 android:padding="16dp"
-                android:text="income" />
+                android:text="income"
+                android:textColor="@color/colorIncome"
+                android:textSize="20dp" />
 
             <TextView
                 android:id="@+id/exTextView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:gravity="center"
                 android:padding="16dp"
-                android:text="Expenditure" />
+                android:text="Expenditure"
+                android:textColor="@color/colorExpenditure"
+                android:textSize="20dp" />
 
         </TableRow>
 
@@ -57,7 +103,9 @@
             android:layout_height="wrap_content"
             android:gravity="center"
             android:padding="16dp"
-            android:text="balance" />
+            android:text="balance"
+            android:textColor="#FF4F5EBC"
+            android:textSize="20dp" />
 
     </TableLayout>
 

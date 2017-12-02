@@ -45,6 +45,7 @@
                 android:id="@+id/dateTextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:lines="1"
                 android:paddingTop="6dp"
                 android:text="dd MMM yyyy"
                 android:textSize="12dp" />

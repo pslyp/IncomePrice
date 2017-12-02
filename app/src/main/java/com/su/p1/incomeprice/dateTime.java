@@ -56,7 +56,13 @@ public class dateTime {
     }
 
     public String getDateText(int day, int month, int year) {
-        return (String.valueOf(day) + String.valueOf(month + 1) + String.valueOf(year));
+        if(day == 0) {
+            if(month == 0)
+                return String.valueOf(year);
+            return String.valueOf(month + 1) + String.valueOf(year);
+        }
+        else
+            return (String.valueOf(day) + String.valueOf(month + 1) + String.valueOf(year));
     }
 
     public String getDateTextMonth(int day, int month, int year) {
