@@ -37,6 +37,7 @@
                 android:id="@+id/memoTextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:singleLine="true"
                 android:text="memo"
                 android:textSize="16dp" />
 

@@ -26,6 +26,15 @@ public class details extends AppCompatActivity {
         initialize();
     }
 
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+
+        Intent main = new Intent(details.this, MainActivity.class);
+        startActivity(main);
+        finish();
+    }
+
     private void initialize() {
         m = new Money();
         mDB = new DBHelper(this);
