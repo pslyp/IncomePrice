@@ -12,6 +12,7 @@ import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -25,11 +26,16 @@ public class Description extends AppCompatActivity {
     private Button inExButton;
     private EditText memo;
     private TextView moneyTextArea, dateText, category1, category2, category3, category4, category5, category6, category7, category8, category9;
-    private ImageView calendarImage;
+    private ImageView calendarImage, cI1, cI2, cI3, cI4, cI5, cI6, cI7, cI8, cI9;
+    private LinearLayout L1, L2, L3, L4, L5, L6, L7, L8, L9;
 
     private boolean checkClick;
+    private int picture;
     private String title, date, moneyText = "", type = "in";
-    private TextView[] category;
+    private int[] picIn, picEx;
+    private ImageView[] cateGImage;
+    private TextView[] cateGText;
+    private LinearLayout[] linear;
 
     static final int DATE_DIALOG_ID = 999;
 
@@ -98,12 +104,13 @@ public class Description extends AppCompatActivity {
                 memo.setText("-");
 
             if (title == null) {
-                Toast.makeText(Description.this, "Select category", Toast.LENGTH_SHORT).show();
+                Toast.makeText(Description.this, "Select cateGText", Toast.LENGTH_SHORT).show();
                 return false;
             }
 
             money.setDate(date);
-            money.setPictureList(R.drawable.pizzacompany);
+            //money.setPictureList(R.drawable.pizzacompany);
+            money.setPictureList(picture);
             money.setTitle(title);
             money.setMemo(memo.getText().toString());
             money.setMoney(Double.parseDouble(moneyText));
@@ -140,75 +147,84 @@ public class Description extends AppCompatActivity {
             }
         });
 
-        category1.setOnClickListener(new View.OnClickListener() {
+        /*
+        L1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                title = category1.getText().toString();
                 selectCategory(category1);
             }
         });
+        */
 
-        category2.setOnClickListener(new View.OnClickListener() {
+        L1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                title = category1.getText().toString();
+                selectCategory(L1);
+            }
+        });
+
+        L2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 title = category2.getText().toString();
-                selectCategory(category2);
+                selectCategory(L2);
             }
         });
 
-        category3.setOnClickListener(new View.OnClickListener() {
+        L3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 title = category3.getText().toString();
-                selectCategory(category3);
+                selectCategory(L3);
             }
         });
 
-        category4.setOnClickListener(new View.OnClickListener() {
+        L4.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 title = category4.getText().toString();
-                selectCategory(category4);
+                selectCategory(L4);
             }
         });
 
-        category5.setOnClickListener(new View.OnClickListener() {
+        L5.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 title = category5.getText().toString();
-                selectCategory(category5);
+                selectCategory(L5);
             }
         });
 
-        category6.setOnClickListener(new View.OnClickListener() {
+        L6.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 title = category6.getText().toString();
-                selectCategory(category6);
+                selectCategory(L6);
             }
         });
 
-        category7.setOnClickListener(new View.OnClickListener() {
+        L7.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 title = category7.getText().toString();
-                selectCategory(category7);
+                selectCategory(L7);
             }
         });
 
-        category8.setOnClickListener(new View.OnClickListener() {
+        L8.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 title = category8.getText().toString();
-                selectCategory(category8);
+                selectCategory(L8);
             }
         });
 
-        category9.setOnClickListener(new View.OnClickListener() {
+        L9.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 title = category9.getText().toString();
-                selectCategory(category9);
+                selectCategory(L9);
             }
         });
 
@@ -233,7 +249,7 @@ public class Description extends AppCompatActivity {
                 if (!checkClick) {
                     moneyTextArea.setTextColor(getResources().getColor(R.color.colorExpenditure));
                     inExButton.setText("Expenditure");
-                    inExButton.setBackgroundResource(R.color.colorExpenditure);
+                    inExButton.setBackgroundResource(R.color.colorRed);
                     checkClick = true;
                     type = "ex";
                     setCategory();
@@ -252,6 +268,16 @@ public class Description extends AppCompatActivity {
     }
 
     private void setCategory() {
+        cI1 = (ImageView) findViewById(R.id.categoryImageView1);
+        cI2 = (ImageView) findViewById(R.id.categoryImageView2);
+        cI3 = (ImageView) findViewById(R.id.categoryImageView3);
+        cI4 = (ImageView) findViewById(R.id.categoryImageView4);
+        cI5 = (ImageView) findViewById(R.id.categoryImageView5);
+        cI6 = (ImageView) findViewById(R.id.categoryImageView6);
+        cI7 = (ImageView) findViewById(R.id.categoryImageView7);
+        cI8 = (ImageView) findViewById(R.id.categoryImageView8);
+        cI9 = (ImageView) findViewById(R.id.categoryImageView9);
+
         category1 = (TextView) findViewById(R.id.categoryTextView1);
         category2 = (TextView) findViewById(R.id.categoryTextView2);
         category3 = (TextView) findViewById(R.id.categoryTextView3);
@@ -262,28 +288,48 @@ public class Description extends AppCompatActivity {
         category8 = (TextView) findViewById(R.id.categoryTextView8);
         category9 = (TextView) findViewById(R.id.categoryTextView9);
 
-        category = new TextView[]{category1, category2, category3, category4, category5, category6, category7, category8, category9};
+        L1 = (LinearLayout) findViewById(R.id.Linear1);
+        L2 = (LinearLayout) findViewById(R.id.Linear2);
+        L3 = (LinearLayout) findViewById(R.id.Linear3);
+        L4 = (LinearLayout) findViewById(R.id.Linear4);
+        L5 = (LinearLayout) findViewById(R.id.Linear5);
+        L6 = (LinearLayout) findViewById(R.id.Linear6);
+        L7 = (LinearLayout) findViewById(R.id.Linear7);
+        L8 = (LinearLayout) findViewById(R.id.Linear8);
+        L9 = (LinearLayout) findViewById(R.id.Linear9);
+
+        cateGImage = new ImageView[] {cI1, cI2, cI3, cI4, cI5, cI6, cI7, cI8, cI9};
+        cateGText = new TextView[] {category1, category2, category3, category4, category5, category6, category7, category8, category9};
+        linear = new LinearLayout[] {L1, L2, L3, L4, L5, L6, L7, L8, L9};
         int[] cIn = {R.string.cIn1, R.string.cIn2, R.string.cIn3};
         int[] cEx = {R.string.cEx1, R.string.cEx2, R.string.cEx3, R.string.cEx4, R.string.cEx5, R.string.cEx6, R.string.cEx7, R.string.cEx8, R.string.cEx9};
+        picIn = new int[] {R.drawable.salary, R.drawable.business, R.drawable.extra};
+        picEx = new int[] {R.drawable.transport, R.drawable.travel, R.drawable.utilitys, R.drawable.entertainment, R.drawable.shopping, R.drawable.bills, R.drawable.personal, R.drawable.food, R.drawable.other};
 
-        for (int i = 0; i < category.length; ++i) {
+        for (int i = 0; i < cateGText.length; ++i) {
             title = null;
             if (type.equals("ex")) {
                 if (i < cEx.length) {
-                    category[i].setText(cEx[i]);
-                    category[i].setEnabled(true);
+                    cateGImage[i].setImageResource(picEx[i]);
+                    cateGImage[i].setVisibility(View.VISIBLE);
+                    cateGText[i].setText(cEx[i]);
+                    cateGText[i].setEnabled(true);
                     continue;
                 }
-                category[i].setText("");
-                category[i].setEnabled(false);
+                cateGImage[i].setVisibility(View.INVISIBLE);
+                cateGText[i].setText("");
+                cateGText[i].setEnabled(false);
             } else {
                 if (i < cIn.length) {
-                    category[i].setText(cIn[i]);
-                    category[i].setEnabled(true);
+                    cateGImage[i].setImageResource(picIn[i]);
+                    cateGImage[i].setVisibility(View.VISIBLE);
+                    cateGText[i].setText(cIn[i]);
+                    cateGText[i].setEnabled(true);
                     continue;
                 }
-                category[i].setText("");
-                category[i].setEnabled(false);
+                cateGImage[i].setVisibility(View.INVISIBLE);
+                cateGText[i].setText("");
+                cateGText[i].setEnabled(false);
             }
         }
 
@@ -333,12 +379,17 @@ public class Description extends AppCompatActivity {
         */
     }
 
-    private void selectCategory(TextView cate) {
-        for (int i = 0; i < category.length; ++i) {
-            if (cate == category[i])
-                category[i].setBackgroundResource(R.color.colorCategorySelect);
+    private void selectCategory(LinearLayout ll) {
+        for (int i = 0; i < linear.length; ++i) {
+            if (ll == linear[i]) {
+                if(type.equals("in"))
+                    picture = picIn[i];
+                else
+                    picture = picEx[i];
+                linear[i].setBackgroundResource(R.color.colorCategorySelect);
+            }
             else
-                category[i].setBackgroundResource(R.color.colorCategoryNoSelect);
+                linear[i].setBackgroundResource(R.color.colorCategoryNoSelect);
         }
 
         /*

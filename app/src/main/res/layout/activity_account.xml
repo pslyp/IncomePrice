@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/backgroundAcc"
+    android:background="@color/colorRed"
     android:gravity="center"
     android:orientation="vertical"
     android:padding="16dp"
@@ -14,7 +14,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Your name"
-        android:textColor="#000000"
+        android:textColor="#FFFFFF"
         android:textSize="32dp" />
 
     <EditText
@@ -22,12 +22,15 @@
         android:layout_width="250dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
-        android:backgroundTint="#000000"
+        android:backgroundTint="#FFFFFF"
         android:cursorVisible="false"
         android:ems="10"
         android:gravity="center"
         android:maxLength="20"
-        android:singleLine="true" />
+        android:singleLine="true"
+        android:textColor="#FFFFFF"
+        android:textCursorDrawable="@drawable/color_cursor"
+        android:textSize="20dp" />
 
     <Button
         android:id="@+id/okButton"

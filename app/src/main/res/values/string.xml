@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">IncomePrice</string>
+    <string name="app_name">Santa Money</string>
     <string name="ok_menu">OK</string>
     <string name="cIn1">Salary</string>
     <string name="cIn2">Business</string>
@@ -8,7 +8,7 @@
     <string name="cEx1">Transport</string>
     <string name="cEx2">Travel</string>
     <string name="cEx3">Utilitys</string>
-    <string name="cEx4">Entertainment</string>
+    <string name="cEx4">Entertain..</string>
     <string name="cEx5">Shopping</string>
     <string name="cEx6">Bills</string>
     <string name="cEx7">Personal</string>
