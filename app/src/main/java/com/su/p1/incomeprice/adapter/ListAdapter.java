@@ -12,7 +12,7 @@ import android.widget.TextView;
 
 import com.su.p1.incomeprice.R;
 import com.su.p1.incomeprice.model.Amount;
-import com.su.p1.incomeprice.model.List;
+import com.su.p1.incomeprice.model.Money;
 
 import java.util.ArrayList;
 
@@ -20,16 +20,16 @@ import java.util.ArrayList;
  * Created by ~ { P_Slyp } ~ on 11/23/2017.
  */
 
-public class ListAdapter extends ArrayAdapter<List> {
+public class ListAdapter extends ArrayAdapter<Money> {
 
     private Context mContext;
-    private ArrayList<List> mList;
+    private ArrayList<Money> mMoney;
     private int mLayout;
 
-    public ListAdapter(@NonNull Context context, int resource, ArrayList<List> objects) {
+    public ListAdapter(@NonNull Context context, int resource, ArrayList<Money> objects) {
         super(context, resource, objects);
         this.mContext = context;
-        this.mList = objects;
+        this.mMoney = objects;
         this.mLayout = resource;
     }
 
@@ -47,12 +47,12 @@ public class ListAdapter extends ArrayAdapter<List> {
         TextView unit = (TextView) view.findViewById(R.id.unitTextView);
 
         Amount am = new Amount();
-        List list = mList.get(position);
+        Money list = mMoney.get(position);
 
         im.setImageResource(list.getPictureList());
         //date.setText(list.getDate());
         title.setText(list.getTitle());
-        memo.setText(list.getMemo());
+        memo.setText("Memo : " + list.getMemo());
         money.setText(am.getInEx(list.getMoney()));
 
         if(list.getType().equals("in")) {

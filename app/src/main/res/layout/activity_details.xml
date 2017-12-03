@@ -4,26 +4,33 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="16dp"
     tools:context="com.su.p1.incomeprice.details">
 
     <TextView
         android:id="@+id/titleTextView"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="title"
+        android:textSize="20dp" />
 
     <TextView
         android:id="@+id/memoTextView"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/titleTextView"
+        android:layout_marginTop="8dp"
+        android:text="memo"
+        android:textSize="20dp" />
 
-    <EditText
-        android:id="@+id/titleEditText"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
-
-    <EditText
-        android:id="@+id/memoEditText"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+    <Button
+        android:id="@+id/deleteButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:text="Delete"
+        android:textSize="18dp" />
 
 </RelativeLayout>

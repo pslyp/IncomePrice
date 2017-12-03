@@ -7,13 +7,15 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.ListView;
 import android.widget.TextView;
 
 import com.su.p1.incomeprice.adapter.ListAdapter;
-import com.su.p1.incomeprice.model.List;
+import com.su.p1.incomeprice.model.Money;
 
 import java.util.ArrayList;
 
@@ -27,7 +29,7 @@ public class MainActivity extends AppCompatActivity {
     private ListView mListView;
     private TextView account, dateText;
 
-    private ArrayList<List> mList;
+    private ArrayList<Money> mMoney;
 
     static final int DATE_DIALOG_ID = 999;
 
@@ -90,7 +92,7 @@ public class MainActivity extends AppCompatActivity {
     private void initialize() {
         dt = new dateTime();
         mDB = new DBHelper(this);
-        mList = new ArrayList<>();
+        mMoney = new ArrayList<>();
 
         account = (TextView) findViewById(R.id.accountTextView);
         add = (Button) findViewById(R.id.addButton);
@@ -98,6 +100,17 @@ public class MainActivity extends AppCompatActivity {
         dateText = (TextView) findViewById(R.id.dateTextView);
 
         setListView(dt.getDay(), dt.getMonth(), dt.getYear());
+
+        mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
+                Intent detail = new Intent(MainActivity.this, details.class);
+                Money m = mMoney.get(position);
+                detail.putExtra("Id", m.getId());
+                startActivity(detail);
+                finish();
+            }
+        });
 
 
         if (mDB.getAccount().length() == 0) {
@@ -111,9 +124,9 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void setListView(int day, int month, int year) {
-        mList = mDB.getList(dt.getDateText(day, month, year));
+        mMoney = mDB.getList(dt.getDateText(day, month, year));
 
-        adapter = new ListAdapter(this, R.layout.item, mList);
+        adapter = new ListAdapter(this, R.layout.item, mMoney);
 
         mListView.setAdapter(adapter);
         mListView.setEmptyView(findViewById(R.id.nolistTextView));

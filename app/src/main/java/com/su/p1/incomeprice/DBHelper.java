@@ -8,9 +8,8 @@ import android.database.sqlite.SQLiteOpenHelper;
 import android.provider.BaseColumns;
 import android.util.Log;
 
-import com.su.p1.incomeprice.model.Account;
 import com.su.p1.incomeprice.model.Amount;
-import com.su.p1.incomeprice.model.List;
+import com.su.p1.incomeprice.model.Money;
 
 import java.util.ArrayList;
 
@@ -56,25 +55,52 @@ public class DBHelper extends SQLiteOpenHelper {
         onCreate(db);
     }
 
-    public void addList(List list) {
+    public void addMoney(Money money) {
         sqLiteDB = this.getWritableDatabase();
 
         ContentValues values = new ContentValues();
         //values.put(Friend.Column.ID, friend.getId());
-        values.put(COL_DATE, list.getDate());
-        values.put(COL_PICTURE, list.getPictureList());
-        values.put(COL_TITLE, list.getTitle());
-        values.put(COL_MEMO, list.getMemo());
-        values.put(COL_MONEY, list.getMoney());
-        values.put(COL_TYPE, list.getType());
+        values.put(COL_DATE, money.getDate());
+        values.put(COL_PICTURE, money.getPictureList());
+        values.put(COL_TITLE, money.getTitle());
+        values.put(COL_MEMO, money.getMemo());
+        //values.put(COL_MEMO, "Add");
+        values.put(COL_MONEY, money.getMoney());
+        values.put(COL_TYPE, money.getType());
 
         sqLiteDB.insert(TABLE_NAME, null, values);
         sqLiteDB.close();
         values.clear();
     }
 
-    public ArrayList<List> getList(String date) {
-        ArrayList<List> list = new ArrayList<>();
+    public Money getMoney(String id) {
+        sqLiteDB = this.getWritableDatabase();
+
+        Cursor c = sqLiteDB.query(TABLE_NAME, new String[] {COL_DATE, COL_TITLE, COL_MEMO, COL_MONEY}, ID + " = ?", new String[]{id}, null, null, null, null);
+
+        if(c != null)
+            c.moveToFirst();
+
+        Money money = new Money();
+
+        money.setDate(c.getString(0));
+        money.setTitle(c.getString(1));
+        money.setMemo(c.getString(2));
+        money.setMoney(c.getDouble(3));
+
+        return money;
+    }
+
+    public void deleteMoney(String id) {
+        sqLiteDB = this.getWritableDatabase();
+
+        sqLiteDB.delete(TABLE_NAME, ID + " = " + id, null);
+
+        sqLiteDB.close();
+    }
+
+    public ArrayList<Money> getList(String date) {
+        ArrayList<Money> money = new ArrayList<>();
 
         sqLiteDB = this.getWritableDatabase();
         Cursor mCursor = sqLiteDB.query(TABLE_NAME, null, COL_DATE + " = ?", new String[] {date}, null, null, null, null);
@@ -83,12 +109,12 @@ public class DBHelper extends SQLiteOpenHelper {
             mCursor.moveToFirst();
 
         while(!mCursor.isAfterLast()) {
-            list.add(new List(mCursor.getString(1), mCursor.getInt(2), mCursor.getString(3), mCursor.getString(4), mCursor.getDouble(5), mCursor.getString(6)));
+            money.add(new Money(mCursor.getInt(0), mCursor.getString(1), mCursor.getInt(2), mCursor.getString(3), mCursor.getString(4), mCursor.getDouble(5), mCursor.getString(6)));
             mCursor.moveToNext();
         }
         sqLiteDB.close();
 
-        return list;
+        return money;
     }
 
     public Amount getInEx(String date) {
@@ -123,18 +149,14 @@ public class DBHelper extends SQLiteOpenHelper {
         return am;
     }
 
-    public void deleteList() {
-
-    }
-
     public void addAccount(String name) {
         sqLiteDB = this.getWritableDatabase();
 
-       ContentValues v = new ContentValues();
-       v.put(COL_NAME, name);
+        ContentValues v = new ContentValues();
+        v.put(COL_NAME, name);
 
-       sqLiteDB.insert(ACC_TABLE_NAME, null, v);
-       sqLiteDB.close();
+        sqLiteDB.insert(ACC_TABLE_NAME, null, v);
+        sqLiteDB.close();
     }
 
     public String getAccount() {

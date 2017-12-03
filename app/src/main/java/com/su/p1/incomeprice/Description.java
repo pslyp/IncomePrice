@@ -10,11 +10,12 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.su.p1.incomeprice.model.List;
+import com.su.p1.incomeprice.model.Money;
 
 public class Description extends AppCompatActivity {
 
@@ -22,7 +23,8 @@ public class Description extends AppCompatActivity {
     private DBHelper mDB;
 
     private Button inExButton;
-    private TextView moneyTextArea, memo, dateText, category1, category2, category3, category4, category5, category6, category7, category8, category9;
+    private EditText memo;
+    private TextView moneyTextArea, dateText, category1, category2, category3, category4, category5, category6, category7, category8, category9;
     private ImageView calendarImage;
 
     private boolean checkClick;
@@ -89,26 +91,25 @@ public class Description extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if (moneyText.length() > 0) {
-            List list = new List();
+            Money money = new Money();
             mDB = new DBHelper(this);
 
-            String m = memo.getText().toString();
-            if (m.length() == 0)
-                m = "-";
+            if (memo.getText().toString().length() == 0)
+                memo.setText("-");
 
             if (title == null) {
                 Toast.makeText(Description.this, "Select category", Toast.LENGTH_SHORT).show();
                 return false;
             }
 
-            list.setDate(date);
-            list.setPictureList(R.drawable.pizzacompany);
-            list.setTitle(title);
-            list.setMemo("Memo : " + m);
-            list.setMoney(Double.parseDouble(moneyText));
-            list.setType(type);
+            money.setDate(date);
+            money.setPictureList(R.drawable.pizzacompany);
+            money.setTitle(title);
+            money.setMemo(memo.getText().toString());
+            money.setMoney(Double.parseDouble(moneyText));
+            money.setType(type);
 
-            mDB.addList(list);
+            mDB.addMoney(money);
 
             Intent it = new Intent(Description.this, MainActivity.class);
             startActivity(it);
@@ -124,9 +125,9 @@ public class Description extends AppCompatActivity {
         dtDes = new dateTime();
 
         inExButton = (Button) findViewById(R.id.in_exButton);
+        memo = (EditText) findViewById(R.id.memoEditText);
         calendarImage = (ImageView) findViewById(R.id.calendarImageView);
         dateText = (TextView) findViewById(R.id.dateTextView);
-        memo = (TextView) findViewById(R.id.memoEditText);
         moneyTextArea = (TextView) findViewById(R.id.amountMoneyTextView);
 
         setCategory();

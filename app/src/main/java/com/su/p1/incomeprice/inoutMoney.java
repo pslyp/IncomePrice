@@ -167,9 +167,11 @@ public class inoutMoney extends AppCompatActivity {
                     return;
                 cDot = true;
             }
-            if(number.equals("0") && moneyText.equals("0")) {
-                moneyText = number;
-                return;
+            if(moneyText.equals("0")) {
+                if (number.equals("0"))
+                    return;
+                else
+                    moneyText = "";
             }
             moneyText += number;
         }

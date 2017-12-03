@@ -4,8 +4,9 @@ package com.su.p1.incomeprice.model;
  * Created by ~ { P_Slyp } ~ on 11/23/2017.
  */
 
-public class List {
+public class Money {
 
+    private int id;
     private String date;
     private int pictureList;
     private String title;
@@ -13,17 +14,26 @@ public class List {
     private double money;
     private String type;
 
-    public List() {
+    public Money() {
 
     }
 
-    public List(String date, int pictureList, String title, String memo, double money, String type) {
+    public Money(int id, String date, int pictureList, String title, String memo, double money, String type) {
+        this.id = id;
         this.date = date;
         this.pictureList = pictureList;
         this.title = title;
         this.memo = memo;
         this.money = money;
         this.type = type;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getDate() {
