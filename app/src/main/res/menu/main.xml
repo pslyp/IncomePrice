@@ -4,16 +4,16 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <item
-        android:id="@+id/selectMenu"
-        android:icon="@drawable/ic_format_list_bulleted_black_24dp"
-        android:title="seMenu"
-        app:showAsAction="always|withText" />
-
-    <item
         android:id="@+id/calendarMenu"
         android:icon="@drawable/calendar"
         android:title="calendar"
         app:showAsAction="always" />
+
+    <item
+        android:id="@+id/selectMenu"
+        android:icon="@drawable/ic_account_balance_wallet_black_24dp"
+        android:title="seMenu"
+        app:showAsAction="always|withText" />
 
     <item
         android:id="@+id/addDesMenu"

@@ -52,7 +52,7 @@ public class ListAdapter extends ArrayAdapter<Money> {
         im.setImageResource(list.getPictureList());
         //date.setText(list.getDate());
         title.setText(list.getTitle());
-        memo.setText("Memo : " + list.getMemo());
+        memo.setText("Memo " + list.getMemo());
         money.setText(am.getInEx(list.getMoney()));
 
         if(list.getType().equals("in")) {

@@ -23,6 +23,8 @@ public class details extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_details);
 
+        setTitle("");
+
         initialize();
     }
 

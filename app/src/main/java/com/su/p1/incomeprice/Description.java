@@ -104,12 +104,11 @@ public class Description extends AppCompatActivity {
                 memo.setText("-");
 
             if (title == null) {
-                Toast.makeText(Description.this, "Select cateGText", Toast.LENGTH_SHORT).show();
-                return false;
+                Toast.makeText(Description.this, "Select category", Toast.LENGTH_SHORT).show();
+                return super.onOptionsItemSelected(item);
             }
 
             money.setDate(date);
-            //money.setPictureList(R.drawable.pizzacompany);
             money.setPictureList(picture);
             money.setTitle(title);
             money.setMemo(memo.getText().toString());
@@ -146,15 +145,6 @@ public class Description extends AppCompatActivity {
                 showDialog(DATE_DIALOG_ID);
             }
         });
-
-        /*
-        L1.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                selectCategory(category1);
-            }
-        });
-        */
 
         L1.setOnClickListener(new View.OnClickListener() {
             @Override
