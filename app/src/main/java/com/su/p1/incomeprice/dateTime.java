@@ -49,12 +49,6 @@ public class dateTime {
         this.year = year;
     }
 
-    public void setDatePresent() {
-        day = c.get(Calendar.DAY_OF_MONTH);
-        month = c.get(Calendar.MONTH);
-        year = c.get(Calendar.YEAR);
-    }
-
     public String getDateText(int day, int month, int year) {
         if(day == 0) {
             if(month == 0)

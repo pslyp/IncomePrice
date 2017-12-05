@@ -64,7 +64,6 @@ public class DBHelper extends SQLiteOpenHelper {
         values.put(COL_PICTURE, money.getPictureList());
         values.put(COL_TITLE, money.getTitle());
         values.put(COL_MEMO, money.getMemo());
-        //values.put(COL_MEMO, "Add");
         values.put(COL_MONEY, money.getMoney());
         values.put(COL_TYPE, money.getType());
 

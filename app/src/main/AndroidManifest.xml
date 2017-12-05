@@ -9,18 +9,30 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".MainActivity">
+        <activity
+            android:name=".MainActivity"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".Description" />
-        <activity android:name=".inoutMoney" />
-        <activity android:name=".Account" />
-        <activity android:name=".Balance" />
-        <activity android:name=".details" />
+        <activity
+            android:name=".Description"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".inoutMoney"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".Account"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".Balance"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".details"
+            android:screenOrientation="portrait" />
     </application>
 
 </manifest>

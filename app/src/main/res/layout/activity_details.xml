@@ -32,6 +32,6 @@
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:text="Delete"
-        android:textSize="18dp" />
+        android:textSize="20dp" />
 
 </RelativeLayout>
