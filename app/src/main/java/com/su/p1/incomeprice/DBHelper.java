@@ -75,7 +75,8 @@ public class DBHelper extends SQLiteOpenHelper {
     public Money getMoney(String id) {
         sqLiteDB = this.getWritableDatabase();
 
-        Cursor c = sqLiteDB.query(TABLE_NAME, new String[] {COL_DATE, COL_TITLE, COL_MEMO, COL_MONEY}, ID + " = ?", new String[]{id}, null, null, null, null);
+        Cursor c = sqLiteDB.query(TABLE_NAME, new String[] {COL_DATE, COL_TITLE, COL_MEMO, COL_MONEY}, ID + " = ?", new String[]{id},
+                null, null, null, null);
 
         if(c != null)
             c.moveToFirst();
@@ -108,7 +109,8 @@ public class DBHelper extends SQLiteOpenHelper {
             mCursor.moveToFirst();
 
         while(!mCursor.isAfterLast()) {
-            money.add(new Money(mCursor.getInt(0), mCursor.getString(1), mCursor.getInt(2), mCursor.getString(3), mCursor.getString(4), mCursor.getDouble(5), mCursor.getString(6)));
+            money.add(new Money(mCursor.getInt(0), mCursor.getString(1), mCursor.getInt(2), mCursor.getString(3), mCursor.getString(4),
+                    mCursor.getDouble(5), mCursor.getString(6)));
             mCursor.moveToNext();
         }
         sqLiteDB.close();
@@ -125,9 +127,11 @@ public class DBHelper extends SQLiteOpenHelper {
 
         Cursor c;
         if(date.length() <= 6)
-            c = sqLiteDB.query(TABLE_NAME, new String[] {COL_MONEY, COL_TYPE}, COL_DATE + " like '%" + date + "'", null, null, null, null, null);
+            c = sqLiteDB.query(TABLE_NAME, new String[] {COL_MONEY, COL_TYPE}, COL_DATE + " like '%" + date + "'",
+                    null, null, null, null, null);
         else
-            c = sqLiteDB.query(TABLE_NAME, new String[] {COL_MONEY, COL_TYPE}, COL_DATE + " = ?", new String[] {date}, null, null, null, null);
+            c = sqLiteDB.query(TABLE_NAME, new String[] {COL_MONEY, COL_TYPE}, COL_DATE + " = ?", new String[] {date},
+                    null, null, null, null);
 
         if(c != null)
             c.moveToFirst();
