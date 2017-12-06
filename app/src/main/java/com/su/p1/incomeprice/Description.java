@@ -25,7 +25,8 @@ public class Description extends AppCompatActivity {
 
     private Button inExButton;
     private EditText memo;
-    private TextView moneyTextArea, dateText, category1, category2, category3, category4, category5, category6, category7, category8, category9;
+    private TextView moneyTextArea, dateText, category1, category2, category3, category4,
+            category5, category6, category7, category8, category9;
     private ImageView calendarImage, cI1, cI2, cI3, cI4, cI5, cI6, cI7, cI8, cI9;
     private LinearLayout L1, L2, L3, L4, L5, L6, L7, L8, L9;
 
@@ -292,9 +293,11 @@ public class Description extends AppCompatActivity {
         cateGText = new TextView[] {category1, category2, category3, category4, category5, category6, category7, category8, category9};
         linear = new LinearLayout[] {L1, L2, L3, L4, L5, L6, L7, L8, L9};
         int[] cIn = {R.string.cIn1, R.string.cIn2, R.string.cIn3};
-        int[] cEx = {R.string.cEx1, R.string.cEx2, R.string.cEx3, R.string.cEx4, R.string.cEx5, R.string.cEx6, R.string.cEx7, R.string.cEx8, R.string.cEx9};
+        int[] cEx = {R.string.cEx1, R.string.cEx2, R.string.cEx3, R.string.cEx4, R.string.cEx5,
+                R.string.cEx6, R.string.cEx7, R.string.cEx8, R.string.cEx9};
         picIn = new int[] {R.drawable.salary, R.drawable.business, R.drawable.extra};
-        picEx = new int[] {R.drawable.transport, R.drawable.travel, R.drawable.utilitys, R.drawable.entertainment, R.drawable.shopping, R.drawable.bills, R.drawable.personal, R.drawable.food, R.drawable.other};
+        picEx = new int[] {R.drawable.transport, R.drawable.travel, R.drawable.utilitys, R.drawable.entertainment,
+                R.drawable.shopping, R.drawable.bills, R.drawable.personal, R.drawable.food, R.drawable.other};
 
         for (int i = 0; i < cateGText.length; ++i) {
             title = null;
