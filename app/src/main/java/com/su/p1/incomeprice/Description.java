@@ -322,51 +322,6 @@ public class Description extends AppCompatActivity {
                 cateGText[i].setEnabled(false);
             }
         }
-
-        /*
-        if (type.equals("ex")) {
-            category1.setText(R.string.cEx1);
-            category2.setText(R.string.cEx2);
-            category3.setText(R.string.cEx3);
-            category4.setText(R.string.cEx4);
-            category5.setText(R.string.cEx5);
-            category6.setText(R.string.cEx6);
-            category7.setText(R.string.cEx7);
-            category8.setText(R.string.cEx8);
-            category9.setText(R.string.cEx9);
-
-            category1.setEnabled(true);
-            category2.setEnabled(true);
-            category3.setEnabled(true);
-            category4.setEnabled(true);
-            category5.setEnabled(true);
-            category6.setEnabled(true);
-            category7.setEnabled(true);
-            category8.setEnabled(true);
-            category9.setEnabled(true);
-        }
-        else {
-            category1.setText(R.string.cIn1);
-            category2.setText(R.string.cIn2);
-            category3.setText(R.string.cIn3);
-            category4.setText("");
-            category5.setText("");
-            category6.setText("");
-            category7.setText("");
-            category8.setText("");
-            category9.setText("");
-
-            category1.setEnabled(true);
-            category2.setEnabled(true);
-            category3.setEnabled(true);
-            category4.setEnabled(false);
-            category5.setEnabled(false);
-            category6.setEnabled(false);
-            category7.setEnabled(false);
-            category8.setEnabled(false);
-            category9.setEnabled(false);
-        }
-        */
     }
 
     private void selectCategory(LinearLayout ll) {
@@ -381,18 +336,6 @@ public class Description extends AppCompatActivity {
             else
                 linear[i].setBackgroundResource(R.color.colorCategoryNoSelect);
         }
-
-        /*
-        category1.setBackgroundResource(R.color.colorCategoryNoSelect);
-        category2.setBackgroundResource(R.color.colorCategoryNoSelect);
-        category3.setBackgroundResource(R.color.colorCategoryNoSelect);
-        category4.setBackgroundResource(R.color.colorCategoryNoSelect);
-        category5.setBackgroundResource(R.color.colorCategoryNoSelect);
-        category6.setBackgroundResource(R.color.colorCategoryNoSelect);
-        category7.setBackgroundResource(R.color.colorCategoryNoSelect);
-        category8.setBackgroundResource(R.color.colorCategoryNoSelect);
-        category9.setBackgroundResource(R.color.colorCategoryNoSelect);
-        */
     }
 
     private void setDate(int day, int month, int year) {
