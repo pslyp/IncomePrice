@@ -151,30 +151,29 @@ public class inoutMoney extends AppCompatActivity {
     }
 
     private void setText(String number) {
-        if (number.equals("-")) {
-            if(moneyText.length() <= 1) {
-                moneyText = "";
-                moneyArea.setText(moneyText);
-                return;
-            }
-            if (moneyText.charAt(moneyText.length() - 1) == '.')
-                cDot = false;
-            moneyText = moneyText.substring(0, moneyText.length() - 1);
-        }
-        else {
-            if (number.equals(".")) {
-                if (cDot || moneyText.length() == 0)
-                    return;
-                cDot = true;
-            }
-            if(moneyText.equals("0")) {
-                if (number.equals("0"))
-                    return;
-                else
+        if (moneyArea.getText().toString().length() <= 8) {
+            if (number.equals("-")) {
+                if (moneyText.length() <= 1) {
                     moneyText = "";
+                    moneyArea.setText(moneyText);
+                    return;
+                }
+                if (moneyText.charAt(moneyText.length() - 1) == '.')
+                    cDot = false;
+                moneyText = moneyText.substring(0, moneyText.length() - 1);
             }
-            moneyText += number;
-        }
+            else {
+                if (number.equals(".")) {
+                    if ((cDot && moneyText.length() >= 0) || moneyText.length() == 0)
+                        return;
+                    cDot = true;
+                }
+                if (number.equals("0") && moneyText.length() == 0)
+                    return;
+
+                moneyText += number;
+            }
         moneyArea.setText(moneyText);
+        }
     }
 }

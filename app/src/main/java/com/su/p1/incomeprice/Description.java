@@ -306,23 +306,23 @@ public class Description extends AppCompatActivity {
                     cateGImage[i].setImageResource(picEx[i]);
                     cateGImage[i].setVisibility(View.VISIBLE);
                     cateGText[i].setText(cEx[i]);
-                    cateGText[i].setEnabled(true);
+                    linear[i].setEnabled(true);
                     continue;
                 }
                 cateGImage[i].setVisibility(View.INVISIBLE);
                 cateGText[i].setText("");
-                cateGText[i].setEnabled(false);
+                linear[i].setEnabled(false);
             } else {
                 if (i < cIn.length) {
                     cateGImage[i].setImageResource(picIn[i]);
                     cateGImage[i].setVisibility(View.VISIBLE);
                     cateGText[i].setText(cIn[i]);
-                    cateGText[i].setEnabled(true);
+                    linear[i].setEnabled(true);
                     continue;
                 }
                 cateGImage[i].setVisibility(View.INVISIBLE);
                 cateGText[i].setText("");
-                cateGText[i].setEnabled(false);
+                linear[i].setEnabled(false);
             }
         }
     }
