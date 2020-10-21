@@ -6,17 +6,25 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.TextView;
-import android.widget.Toast;
+import android.widget.*;
 
+import com.su.p1.incomeprice.CategoryManager;
 import com.su.p1.incomeprice.DBHelper;
 import com.su.p1.incomeprice.R;
+import com.su.p1.incomeprice.model.Category;
 import com.su.p1.incomeprice.model.Particular;
 
 public class DescriptionActivity extends AppCompatActivity {
 
+    private LinearLayout l1, l2, l3, l4, l5, l6, l7, l8, l9;
+    private ImageView img1, img2, img3, img4, img5, img6, img7, img8, img9;
+    private TextView text1, text2, text3, text4, text5, text6, text7, text8, text9;
     private TextView amountMoneyTextView, memoTextView;
+    private Button inExButton;
 
+    private CategoryManager cm;
+
+    private boolean expenditure = true;
     private final int AMOUNT_REQUEST = 12;
 
     @Override
@@ -26,6 +34,7 @@ public class DescriptionActivity extends AppCompatActivity {
         setTitle("");
 
         initialize();
+        setCategory();
     }
 
     @Override
@@ -65,7 +74,65 @@ public class DescriptionActivity extends AppCompatActivity {
                 startActivityForResult(intent, AMOUNT_REQUEST);
             }
         });
+
+        inExButton = findViewById(R.id.in_exButton);
+        inExButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (expenditure) {
+                    inExButton.setText("Expenditure");
+                    inExButton.setBackgroundResource(R.color.colorExpenditure);
+                    cm.select(null);
+                    expenditure = false;
+                } else {
+                    inExButton.setText("Income");
+                    inExButton.setBackgroundResource(R.color.colorIncome);
+                    cm.select(null);
+                    expenditure = true;
+                }
+                cm.reload();
+            }
+        });
+
+        l1 = findViewById(R.id.linearLayout1);
+        l2 = findViewById(R.id.linearLayout2);
+        l3 = findViewById(R.id.linearLayout3);
+        l4 = findViewById(R.id.linearLayout4);
+        l5 = findViewById(R.id.linearLayout5);
+        l6 = findViewById(R.id.linearLayout6);
+        l7 = findViewById(R.id.linearLayout7);
+        l8 = findViewById(R.id.linearLayout8);
+        l9 = findViewById(R.id.linearLayout9);
+
+        img1 = findViewById(R.id.categoryImageView1);
+        img2 = findViewById(R.id.categoryImageView2);
+        img3 = findViewById(R.id.categoryImageView3);
+        img4 = findViewById(R.id.categoryImageView4);
+        img5 = findViewById(R.id.categoryImageView5);
+        img6 = findViewById(R.id.categoryImageView6);
+        img7 = findViewById(R.id.categoryImageView7);
+        img8 = findViewById(R.id.categoryImageView8);
+        img9 = findViewById(R.id.categoryImageView9);
+
+        text1 = findViewById(R.id.categoryTextView1);
+        text2 = findViewById(R.id.categoryTextView2);
+        text3 = findViewById(R.id.categoryTextView3);
+        text4 = findViewById(R.id.categoryTextView4);
+        text5 = findViewById(R.id.categoryTextView5);
+        text6 = findViewById(R.id.categoryTextView6);
+        text7 = findViewById(R.id.categoryTextView7);
+        text8 = findViewById(R.id.categoryTextView8);
+        text9 = findViewById(R.id.categoryTextView9);
+
         memoTextView = findViewById(R.id.memoEditText);
+    }
+
+    private void setCategory() {
+        cm = new CategoryManager(new LinearLayout[]{l1, l2, l3, l4, l5, l6, l7, l8, l9},
+                new ImageView[]{img1, img2, img3, img4, img5, img6, img7, img8, img9},
+                new TextView[]{text1, text2, text3, text4, text5, text6, text7, text8, text9}).init();
+
+
     }
 
     private boolean saveToDB() {
@@ -77,10 +144,10 @@ public class DescriptionActivity extends AppCompatActivity {
             double money = Double.parseDouble(amountMoneyTextView.getText().toString().trim());
             String memo = memoTextView.getText().toString().trim();
 
-            particular.setDate();
-            particular.setMoney(money);
-            particular.setMemo(memo);
-            particular.setCategoryID();
+//            particular.setDate();
+//            particular.setMoney(money);
+//            particular.setMemo(memo);
+//            particular.setCategoryID("In1");
 
             mDB.addMoney(particular);
             return true;

@@ -1,28 +1,31 @@
 package com.su.p1.incomeprice.model;
 
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 public class Category {
 
+    private LinearLayout layout;
     private ImageView image;
     private TextView text;
-    private byte type;
 
-    public ImageView getImage() {
-        return image;
+    public Category(LinearLayout layout, ImageView image, TextView text) {
+        this.layout = layout;
+        this.image = image;
+        this.text = text;
     }
 
-    public TextView getText() {
-        return text;
+    public LinearLayout getLayout() {
+        return layout;
     }
 
-    public byte getType() {
-        return type;
+    public void setImageResource(int resId) {
+        image.setImageResource(resId);
     }
 
-    public void setType(byte type) {
-        this.type = type;
+    public void setText(int resId) {
+        text.setText(resId);
     }
 
 }
