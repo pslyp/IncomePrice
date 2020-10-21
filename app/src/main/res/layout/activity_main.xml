@@ -1,73 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:gravity="center_vertical"
-    android:orientation="vertical"
-    tools:context="com.su.p1.incomeprice.MainActivity">
-
-    <LinearLayout
+<RelativeLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
-        android:layout_height="40dp"
-        android:background="@color/colorCategorySelect"
-        android:gravity="center_vertical"
-        android:orientation="horizontal"
-        android:paddingLeft="16dp"
-        android:paddingRight="16dp">
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        tools:context="com.su.p1.incomeprice.activities.MainActivity">
 
-        <TextView
-            android:id="@+id/dateTextView"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="Date"
-            android:textSize="16dp" />
+    <include android:id="@+id/detailLayout" layout="@layout/detail_bar_layout"/>
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:gravity="right">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Acc: "
-                android:textSize="16dp" />
-
-            <TextView
-                android:id="@+id/accountTextView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text=""
-                android:textSize="16dp" />
-
-        </LinearLayout>
-
-    </LinearLayout>
-
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
-        <ListView
+    <ListView
             android:id="@+id/listView"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:layout_height="match_parent"
+            android:layout_below="@id/detailLayout"
+            android:visibility="gone"/>
 
-        <TextView
+    <TextView
             android:id="@+id/nolistTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentTop="true"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="130dp"
-            android:text="No List"
-            android:textSize="50dp"
-            android:visibility="gone" />
+            android:layout_centerInParent="true"
+            android:text="@string/no_list"
+            android:textSize="50dp"/>
 
-        <Button
+    <Button
             android:id="@+id/addButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -75,8 +32,6 @@
             android:layout_centerHorizontal="true"
             android:layout_marginTop="170dp"
             android:text="Add"
-            android:visibility="invisible" />
+            android:visibility="gone"/>
 
-    </RelativeLayout>
-
-</LinearLayout>
+</RelativeLayout>

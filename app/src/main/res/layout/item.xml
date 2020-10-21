@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:gravity="center_vertical"
-    tools:context="com.su.p1.incomeprice.MainActivity">
+    tools:context="com.su.p1.incomeprice.activities.MainActivity">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -58,7 +58,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="right"
-                android:text="money"
+                android:text="particular"
                 android:textSize="18dp" />
 
             <TextView

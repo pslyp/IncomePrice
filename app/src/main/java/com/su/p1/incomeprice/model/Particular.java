@@ -1,10 +1,12 @@
 package com.su.p1.incomeprice.model;
 
+import android.transition.Transition;
+
 /**
  * Created by ~ { P_Slyp } ~ on 11/23/2017.
  */
 
-public class Money {
+public class Particular {
 
     private int id;
     private String date;
@@ -14,11 +16,13 @@ public class Money {
     private double money;
     private String type;
 
-    public Money() {
+    private String categoryID;
+
+    public Particular() {
 
     }
 
-    public Money(int id, String date, int pictureList, String title, String memo, double money, String type) {
+    public Particular(int id, String date, int pictureList, String title, String memo, double money, String type) {
         this.id = id;
         this.date = date;
         this.pictureList = pictureList;
@@ -26,6 +30,11 @@ public class Money {
         this.memo = memo;
         this.money = money;
         this.type = type;
+    }
+
+    public Particular(int id, String date, int pictureList, String title, String memo, double money, String type, String categoryID) {
+        this(id, date, pictureList, title, memo, money, type);
+        this.categoryID = categoryID;
     }
 
     public int getId() {
@@ -82,6 +91,14 @@ public class Money {
 
     public void setType(String type) {
         this.type = type;
+    }
+
+    public String getCategoryID() {
+        return categoryID;
+    }
+
+    public void setCategoryID(String categoryID) {
+        this.categoryID = categoryID;
     }
 
 }

@@ -9,7 +9,7 @@ import android.provider.BaseColumns;
 import android.util.Log;
 
 import com.su.p1.incomeprice.model.Amount;
-import com.su.p1.incomeprice.model.Money;
+import com.su.p1.incomeprice.model.Particular;
 
 import java.util.ArrayList;
 
@@ -55,24 +55,24 @@ public class DBHelper extends SQLiteOpenHelper {
         onCreate(db);
     }
 
-    public void addMoney(Money money) {
+    public void addMoney(Particular particular) {
         sqLiteDB = this.getWritableDatabase();
 
         ContentValues values = new ContentValues();
         //values.put(Friend.Column.ID, friend.getId());
-        values.put(COL_DATE, money.getDate());
-        values.put(COL_PICTURE, money.getPictureList());
-        values.put(COL_TITLE, money.getTitle());
-        values.put(COL_MEMO, money.getMemo());
-        values.put(COL_MONEY, money.getMoney());
-        values.put(COL_TYPE, money.getType());
+        values.put(COL_DATE, particular.getDate());
+        values.put(COL_PICTURE, particular.getPictureList());
+        values.put(COL_TITLE, particular.getTitle());
+        values.put(COL_MEMO, particular.getMemo());
+        values.put(COL_MONEY, particular.getMoney());
+        values.put(COL_TYPE, particular.getType());
 
         sqLiteDB.insert(TABLE_NAME, null, values);
         sqLiteDB.close();
         values.clear();
     }
 
-    public Money getMoney(String id) {
+    public Particular getMoney(String id) {
         sqLiteDB = this.getWritableDatabase();
 
         Cursor c = sqLiteDB.query(TABLE_NAME, new String[] {COL_DATE, COL_TITLE, COL_MEMO, COL_MONEY}, ID + " = ?", new String[]{id},
@@ -81,14 +81,14 @@ public class DBHelper extends SQLiteOpenHelper {
         if(c != null)
             c.moveToFirst();
 
-        Money money = new Money();
+        Particular particular = new Particular();
 
-        money.setDate(c.getString(0));
-        money.setTitle(c.getString(1));
-        money.setMemo(c.getString(2));
-        money.setMoney(c.getDouble(3));
+        particular.setDate(c.getString(0));
+        particular.setTitle(c.getString(1));
+        particular.setMemo(c.getString(2));
+        particular.setMoney(c.getDouble(3));
 
-        return money;
+        return particular;
     }
 
     public void deleteMoney(String id) {
@@ -99,8 +99,8 @@ public class DBHelper extends SQLiteOpenHelper {
         sqLiteDB.close();
     }
 
-    public ArrayList<Money> getList(String date) {
-        ArrayList<Money> money = new ArrayList<>();
+    public ArrayList<Particular> getList(String date) {
+        ArrayList<Particular> particular = new ArrayList<>();
 
         sqLiteDB = this.getWritableDatabase();
         Cursor mCursor = sqLiteDB.query(TABLE_NAME, null, COL_DATE + " = ?", new String[] {date}, null, null, null, null);
@@ -109,13 +109,13 @@ public class DBHelper extends SQLiteOpenHelper {
             mCursor.moveToFirst();
 
         while(!mCursor.isAfterLast()) {
-            money.add(new Money(mCursor.getInt(0), mCursor.getString(1), mCursor.getInt(2), mCursor.getString(3), mCursor.getString(4),
+            particular.add(new Particular(mCursor.getInt(0), mCursor.getString(1), mCursor.getInt(2), mCursor.getString(3), mCursor.getString(4),
                     mCursor.getDouble(5), mCursor.getString(6)));
             mCursor.moveToNext();
         }
         sqLiteDB.close();
 
-        return money;
+        return particular;
     }
 
     public Amount getInEx(String date) {

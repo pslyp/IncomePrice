@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:padding="16dp"
-    tools:context="com.su.p1.incomeprice.details">
+    tools:context="com.su.p1.incomeprice.activities.DetailsActivity">
 
     <TextView
         android:id="@+id/titleTextView"

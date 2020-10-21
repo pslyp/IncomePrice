@@ -1,4 +1,4 @@
-package com.su.p1.incomeprice;
+package com.su.p1.incomeprice.activities;
 
 import android.app.DatePickerDialog;
 import android.app.Dialog;
@@ -14,8 +14,9 @@ import android.widget.DatePicker;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.su.p1.incomeprice.*;
 import com.su.p1.incomeprice.adapter.ListAdapter;
-import com.su.p1.incomeprice.model.Money;
+import com.su.p1.incomeprice.model.Particular;
 
 import java.util.ArrayList;
 
@@ -29,7 +30,7 @@ public class MainActivity extends AppCompatActivity {
     private ListView mListView;
     private TextView account, dateText;
 
-    private ArrayList<Money> mMoney;
+    private ArrayList<Particular> mParticular;
 
     static final int DATE_DIALOG_ID = 999;
 
@@ -75,7 +76,7 @@ public class MainActivity extends AppCompatActivity {
                 showDialog(DATE_DIALOG_ID);
                 return true;
             case R.id.addDesMenu:
-                Intent description = new Intent(MainActivity.this, Description.class);
+                Intent description = new Intent(MainActivity.this, DescriptionActivity.class);
                 startActivity(description);
                 finish();
                 return true;
@@ -92,46 +93,39 @@ public class MainActivity extends AppCompatActivity {
     private void initialize() {
         dt = new dateTime();
         mDB = new DBHelper(this);
-        mMoney = new ArrayList<>();
+        mParticular = new ArrayList<>();
 
-        account = (TextView) findViewById(R.id.accountTextView);
+        if (mDB.getAccount().length() == 0) {
+            startActivity(new Intent(MainActivity.this, AccountNameActivity.class));
+            finish();
+        }
+
+        account = (TextView) findViewById(R.id.accountNameTextView);
         add = (Button) findViewById(R.id.addButton);
         mListView = (ListView) findViewById(R.id.listView);
         dateText = (TextView) findViewById(R.id.dateTextView);
 
+        dateText.setText(dt.getDateTextMonth(dt.getDay(), dt.getMonth(), dt.getYear()));
         setListView(dt.getDay(), dt.getMonth(), dt.getYear());
-
-        mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
-                Intent detail = new Intent(MainActivity.this, details.class);
-                Money m = mMoney.get(position);
-                detail.putExtra("Id", m.getId());
-                startActivity(detail);
-                finish();
-            }
-        });
-
-
-        if (mDB.getAccount().length() == 0) {
-            Intent account = new Intent(MainActivity.this, Account.class);
-            startActivity(account);
-            finish();
-        }
-
-        account.setText(mDB.getAccount());
-
+        account.setText(account.getText()+" "+mDB.getAccount());
     }
 
     private void setListView(int day, int month, int year) {
-        mMoney = mDB.getList(dt.getDateText(day, month, year));
+        mParticular = mDB.getList(dt.getDateText(day, month, year));
 
-        adapter = new ListAdapter(this, R.layout.item, mMoney);
+        adapter = new ListAdapter(this, R.layout.item, mParticular);
 
         mListView.setAdapter(adapter);
         mListView.setEmptyView(findViewById(R.id.nolistTextView));
-
-        dateText.setText(dt.getDateTextMonth(day, month, year));
+        mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
+                Intent detail = new Intent(MainActivity.this, DetailsActivity.class);
+                Particular m = mParticular.get(position);
+                detail.putExtra("Id", m.getId());
+                startActivity(detail);
+            }
+        });
     }
 
 }

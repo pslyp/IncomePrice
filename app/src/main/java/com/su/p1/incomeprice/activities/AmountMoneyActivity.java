@@ -1,4 +1,4 @@
-package com.su.p1.incomeprice;
+package com.su.p1.incomeprice.activities;
 
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
@@ -7,18 +7,19 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
+import com.su.p1.incomeprice.R;
 
-public class inoutMoney extends AppCompatActivity {
+public class AmountMoneyActivity extends AppCompatActivity {
 
     private TextView moneyArea, zero, one, two, three, four, five, six, seven, eight, nine, dot, delete;
 
     private boolean cDot;
-    private String moneyText = "";
+    private String moneyText = "0";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_inout_money);
+        setContentView(R.layout.activity_amount_money);
         setTitle("");
 
         initialize();
@@ -28,14 +29,14 @@ public class inoutMoney extends AppCompatActivity {
     public void onBackPressed() {
         super.onBackPressed();
 
-        Intent it = new Intent(inoutMoney.this, Description.class);
+        Intent it = new Intent(AmountMoneyActivity.this, DescriptionActivity.class);
         startActivity(it);
         finish();
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.ok, menu);
+        getMenuInflater().inflate(R.menu.description, menu);
 
         return super.onCreateOptionsMenu(menu);
     }
@@ -151,29 +152,38 @@ public class inoutMoney extends AppCompatActivity {
     }
 
     private void setText(String number) {
-        if (moneyArea.getText().toString().length() <= 8) {
-            if (number.equals("-")) {
-                if (moneyText.length() <= 1) {
-                    moneyText = "";
-                    moneyArea.setText(moneyText);
-                    return;
-                }
-                if (moneyText.charAt(moneyText.length() - 1) == '.')
-                    cDot = false;
-                moneyText = moneyText.substring(0, moneyText.length() - 1);
+        if (number.equals("-")) {
+            if (moneyText.charAt(moneyText.length() - 1) == '.')
+                cDot = false;
+            if (moneyText.length() == 1) {
+                moneyText = "0";
+                moneyArea.setText(moneyText);
+                return;
             }
-            else {
+            moneyText = moneyText.substring(0, moneyText.length() - 1);
+        } else {
+            if (number.equals("0") && moneyText.equals("0"))
+                return;
+            if (moneyText.length() < 10) {
+                if (moneyText.equals("0") && !number.equals("."))
+                    moneyText = "";
                 if (number.equals(".")) {
-                    if ((cDot && moneyText.length() >= 0) || moneyText.length() == 0)
+                    if (cDot)
                         return;
                     cDot = true;
                 }
-                if (number.equals("0") && moneyText.length() == 0)
-                    return;
-
                 moneyText += number;
             }
-        moneyArea.setText(moneyText);
         }
+
+//        for (int index=moneyText.length()-1; index>=0; index--) {
+////            System.out.println(moneyText.charAt(index));
+//            Log.e("eiei", index+"");
+//            if (index != 0 && index%4 == 0) {
+//                Log.e("Four", index+"+"+moneyText.charAt(index));
+//            }
+//        }
+
+        moneyArea.setText(moneyText);
     }
 }

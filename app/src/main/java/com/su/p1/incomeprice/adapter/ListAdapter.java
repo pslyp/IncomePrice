@@ -12,7 +12,7 @@ import android.widget.TextView;
 
 import com.su.p1.incomeprice.R;
 import com.su.p1.incomeprice.model.Amount;
-import com.su.p1.incomeprice.model.Money;
+import com.su.p1.incomeprice.model.Particular;
 
 import java.util.ArrayList;
 
@@ -20,16 +20,16 @@ import java.util.ArrayList;
  * Created by ~ { P_Slyp } ~ on 11/23/2017.
  */
 
-public class ListAdapter extends ArrayAdapter<Money> {
+public class ListAdapter extends ArrayAdapter<Particular> {
 
     private Context mContext;
-    private ArrayList<Money> mMoney;
+    private ArrayList<Particular> mParticular;
     private int mLayout;
 
-    public ListAdapter(@NonNull Context context, int resource, ArrayList<Money> objects) {
+    public ListAdapter(@NonNull Context context, int resource, ArrayList<Particular> objects) {
         super(context, resource, objects);
         this.mContext = context;
-        this.mMoney = objects;
+        this.mParticular = objects;
         this.mLayout = resource;
     }
 
@@ -47,7 +47,7 @@ public class ListAdapter extends ArrayAdapter<Money> {
         TextView unit = (TextView) view.findViewById(R.id.unitTextView);
 
         Amount am = new Amount();
-        Money list = mMoney.get(position);
+        Particular list = mParticular.get(position);
 
         im.setImageResource(list.getPictureList());
         //date.setText(list.getDate());

@@ -11,9 +11,8 @@ import android.view.View;
 import android.widget.DatePicker;
 import android.widget.TextView;
 
+import com.su.p1.incomeprice.activities.MainActivity;
 import com.su.p1.incomeprice.model.Amount;
-
-import org.w3c.dom.Text;
 
 public class Balance extends AppCompatActivity {
 
