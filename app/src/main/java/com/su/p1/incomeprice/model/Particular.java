@@ -32,8 +32,8 @@ public class Particular {
         this.type = type;
     }
 
-    public Particular(int id, String date, int pictureList, String title, String memo, double money, String type, String categoryID) {
-        this(id, date, pictureList, title, memo, money, type);
+    public Particular(int id, String date, String title, String memo, double money, String categoryID) {
+        this(id, date, 0, title, memo, money, categoryID);
         this.categoryID = categoryID;
     }
 

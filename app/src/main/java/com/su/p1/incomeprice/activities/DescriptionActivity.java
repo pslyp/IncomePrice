@@ -3,6 +3,7 @@ package com.su.p1.incomeprice.activities;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -11,8 +12,11 @@ import android.widget.*;
 import com.su.p1.incomeprice.CategoryManager;
 import com.su.p1.incomeprice.DBHelper;
 import com.su.p1.incomeprice.R;
+import com.su.p1.incomeprice.dateTime;
 import com.su.p1.incomeprice.model.Category;
 import com.su.p1.incomeprice.model.Particular;
+
+import java.util.Calendar;
 
 public class DescriptionActivity extends AppCompatActivity {
 
@@ -82,14 +86,11 @@ public class DescriptionActivity extends AppCompatActivity {
                 if (expenditure) {
                     inExButton.setText("Expenditure");
                     inExButton.setBackgroundResource(R.color.colorExpenditure);
-                    cm.select(null);
-                    expenditure = false;
                 } else {
                     inExButton.setText("Income");
                     inExButton.setBackgroundResource(R.color.colorIncome);
-                    cm.select(null);
-                    expenditure = true;
                 }
+                expenditure = !expenditure;
                 cm.reload();
             }
         });
@@ -132,7 +133,6 @@ public class DescriptionActivity extends AppCompatActivity {
                 new ImageView[]{img1, img2, img3, img4, img5, img6, img7, img8, img9},
                 new TextView[]{text1, text2, text3, text4, text5, text6, text7, text8, text9}).init();
 
-
     }
 
     private boolean saveToDB() {
@@ -144,15 +144,25 @@ public class DescriptionActivity extends AppCompatActivity {
             double money = Double.parseDouble(amountMoneyTextView.getText().toString().trim());
             String memo = memoTextView.getText().toString().trim();
 
-//            particular.setDate();
-//            particular.setMoney(money);
-//            particular.setMemo(memo);
-//            particular.setCategoryID("In1");
+            Log.e("MM", money+"");
+
+            Calendar c = Calendar.getInstance();
+            dateTime dt = new dateTime();
+
+            int day = c.get(Calendar.DAY_OF_MONTH);
+            int month = c.get(Calendar.MONTH);
+            int year = c.get(Calendar.YEAR);
+
+            particular.setDate(dt.getDateText(day, month, year));
+            particular.setMoney(money);
+            particular.setMemo(memo);
+            particular.setCategoryID(cm.selected());
 
             mDB.addMoney(particular);
             return true;
         } else {
             Toast.makeText(getApplicationContext(), R.string.enter_amount, Toast.LENGTH_SHORT).show();
+            Log.e("ID", cm.selected());
             return false;
         }
     }

@@ -3,6 +3,7 @@ package com.su.p1.incomeprice.adapter;
 import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,6 +11,7 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.su.p1.incomeprice.CategoryManager;
 import com.su.p1.incomeprice.R;
 import com.su.p1.incomeprice.model.Amount;
 import com.su.p1.incomeprice.model.Particular;
@@ -49,19 +51,22 @@ public class ListAdapter extends ArrayAdapter<Particular> {
         Amount am = new Amount();
         Particular list = mParticular.get(position);
 
-        im.setImageResource(list.getPictureList());
+        CategoryManager cm = new CategoryManager(mContext);
+        cm.categoryID(list.getCategoryID());
+
+        im.setImageResource(cm.getImage());
         //date.setText(list.getDate());
-        title.setText(list.getTitle());
+        title.setText(cm.getTitle());
         memo.setText("Memo " + list.getMemo());
         money.setText(am.getInEx(list.getMoney()));
 
-        if(list.getType().equals("in")) {
-            money.setTextColor(mContext.getResources().getColor(R.color.colorIncome));
-            unit.setTextColor(mContext.getResources().getColor(R.color.colorIncome));
-        }
-        else {
+        if(cm.getType() == 1) {
             money.setTextColor(mContext.getResources().getColor(R.color.colorExpenditure));
             unit.setTextColor(mContext.getResources().getColor(R.color.colorExpenditure));
+        }
+        else {
+            money.setTextColor(mContext.getResources().getColor(R.color.colorIncome));
+            unit.setTextColor(mContext.getResources().getColor(R.color.colorIncome));
         }
 
         return view;

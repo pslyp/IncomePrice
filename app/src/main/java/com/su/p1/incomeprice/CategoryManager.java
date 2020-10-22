@@ -1,5 +1,6 @@
 package com.su.p1.incomeprice;
 
+import android.content.Context;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -21,7 +22,13 @@ public class CategoryManager {
 
     private Category[] c;
 
+    private Context context;
     private int type = 1;
+    private String cId;
+
+    public CategoryManager(Context context) {
+        this.context = context;
+    }
 
     public CategoryManager(LinearLayout[] layout, ImageView[] imageViews, TextView[] textViews) {
         this.layout = layout;
@@ -42,13 +49,15 @@ public class CategoryManager {
         for (int i=0; i<layout.length; i++) {
             if (type == 1) {
                 if (i < exImgs.length) {
+                    c[i].setId("ex"+i);
                     c[i].setImageResource(exImgs[i]);
                     c[i].setText(exTexts[i]);
-                    c[i].getLayout().setVisibility(View.VISIBLE);
-                    c[i].getLayout().setEnabled(true);
-                    c[i].getLayout().setOnClickListener(new View.OnClickListener() {
+                    c[i].setVisibility(View.VISIBLE);
+                    c[i].setEnabled(true);
+                    c[i].setOnClickListener(new Category.OnClickListener() {
                         @Override
-                        public void onClick(View view) {
+                        public void onClick(View view, String id) {
+                            cId = id;
                             select((LinearLayout) view);
                         }
                     });
@@ -56,28 +65,33 @@ public class CategoryManager {
                 }
             } else {
                 if (i < inImgs.length) {
+                    c[i].setId("in"+i);
                     c[i].setImageResource(inImgs[i]);
                     c[i].setText(inTexts[i]);
-                    c[i].getLayout().setEnabled(true);
-                    c[i].getLayout().setOnClickListener(new View.OnClickListener() {
+                    c[i].setVisibility(View.VISIBLE);
+                    c[i].setEnabled(true);
+                    c[i].setOnClickListener(new Category.OnClickListener() {
                         @Override
-                        public void onClick(View view) {
+                        public void onClick(View view, String id) {
+                            cId = id;
                             select((LinearLayout) view);
                         }
                     });
                     continue;
                 }
             }
-            c[i].getLayout().setVisibility(View.INVISIBLE);
-            c[i].getLayout().setEnabled(false);
+            c[i].setVisibility(View.INVISIBLE);
+            c[i].setEnabled(false);
         }
     }
 
     public void reload() {
+        cId = null;
+        select(null);
         setObject(type == 1 ? (type = 2) : (type = 1));
     }
 
-    public void select(LinearLayout view) {
+    private void select(LinearLayout view) {
         for (LinearLayout linearLayout : layout) {
             if (view == linearLayout) {
                 view.setBackgroundResource(R.color.colorCategorySelect);
@@ -85,6 +99,28 @@ public class CategoryManager {
             }
             linearLayout.setBackgroundResource(R.color.colorCategoryNoSelect);
         }
+    }
+
+    public String selected() {
+        return this.cId;
+    }
+
+    public void categoryID(String cId) {
+        this.cId = cId;
+    }
+
+    public int getImage() {
+        return cId.contains("ex") ? exImgs[Integer.parseInt(cId.substring(2))] : inImgs[Integer.parseInt(cId.substring(2))];
+    }
+
+    public String getTitle() {
+        return cId.contains("ex") ?
+                context.getString(exTexts[Integer.parseInt(cId.substring(2))]) :
+                context.getString(inTexts[Integer.parseInt(cId.substring(2))]);
+    }
+
+    public int getType() {
+        return cId.contains("ex") ? 1 : 2;
     }
 
 }

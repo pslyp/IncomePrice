@@ -124,6 +124,7 @@ public class MainActivity extends AppCompatActivity {
                 Particular m = mParticular.get(position);
                 detail.putExtra("Id", m.getId());
                 startActivity(detail);
+                finish();
             }
         });
     }

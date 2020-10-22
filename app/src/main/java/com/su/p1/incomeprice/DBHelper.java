@@ -26,11 +26,11 @@ public class DBHelper extends SQLiteOpenHelper {
     public static final String TABLE_NAME = "list";
     public static final String ID = BaseColumns._ID;
     public static final String COL_DATE = "date";
-    public static final String COL_PICTURE = "picture";
+//    public static final String COL_PICTURE = "picture";
     public static final String COL_TITLE = "title";
     public static final String COL_MEMO = "memo";
     public static final String COL_MONEY = "money";
-    public static final String COL_TYPE = "type";
+    public static final String COL_CATEGORY_ID = "categoryId";
 
     private final String ACC_TABLE_NAME = "account";
     private final String COL_NAME = "name";
@@ -42,7 +42,7 @@ public class DBHelper extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
         db.execSQL("CREATE TABLE " + TABLE_NAME + "(" + ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " + COL_DATE + " TEXT, "
-                + COL_PICTURE + " INTEGER, " + COL_TITLE + " TEXT, " + COL_MEMO + " TEXT, " + COL_MONEY + " DOUBLE, " + COL_TYPE + " TEXT);");
+                + COL_TITLE + " TEXT, " + COL_MEMO + " TEXT, " + COL_MONEY + " DOUBLE, " + COL_CATEGORY_ID + " TEXT);");
 
         db.execSQL("CREATE TABLE " + ACC_TABLE_NAME + "(" + COL_NAME + " TEXT);");
 
@@ -61,11 +61,11 @@ public class DBHelper extends SQLiteOpenHelper {
         ContentValues values = new ContentValues();
         //values.put(Friend.Column.ID, friend.getId());
         values.put(COL_DATE, particular.getDate());
-        values.put(COL_PICTURE, particular.getPictureList());
-        values.put(COL_TITLE, particular.getTitle());
+//        values.put(COL_PICTURE, 12345);
+//        values.put(COL_TITLE, particular.getTitle());
         values.put(COL_MEMO, particular.getMemo());
         values.put(COL_MONEY, particular.getMoney());
-        values.put(COL_TYPE, particular.getType());
+        values.put(COL_CATEGORY_ID, particular.getCategoryID());
 
         sqLiteDB.insert(TABLE_NAME, null, values);
         sqLiteDB.close();
@@ -109,8 +109,8 @@ public class DBHelper extends SQLiteOpenHelper {
             mCursor.moveToFirst();
 
         while(!mCursor.isAfterLast()) {
-            particular.add(new Particular(mCursor.getInt(0), mCursor.getString(1), mCursor.getInt(2), mCursor.getString(3), mCursor.getString(4),
-                    mCursor.getDouble(5), mCursor.getString(6)));
+            particular.add(new Particular(mCursor.getInt(0), mCursor.getString(1), mCursor.getString(2), mCursor.getString(3),
+                    mCursor.getDouble(4), mCursor.getString(5)));
             mCursor.moveToNext();
         }
         sqLiteDB.close();
@@ -127,10 +127,10 @@ public class DBHelper extends SQLiteOpenHelper {
 
         Cursor c;
         if(date.length() <= 6)
-            c = sqLiteDB.query(TABLE_NAME, new String[] {COL_MONEY, COL_TYPE}, COL_DATE + " like '%" + date + "'",
+            c = sqLiteDB.query(TABLE_NAME, new String[] {COL_MONEY, COL_CATEGORY_ID}, COL_DATE + " like '%" + date + "'",
                     null, null, null, null, null);
         else
-            c = sqLiteDB.query(TABLE_NAME, new String[] {COL_MONEY, COL_TYPE}, COL_DATE + " = ?", new String[] {date},
+            c = sqLiteDB.query(TABLE_NAME, new String[] {COL_MONEY, COL_CATEGORY_ID}, COL_DATE + " = ?", new String[] {date},
                     null, null, null, null);
 
         if(c != null)
